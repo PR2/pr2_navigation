@@ -1,0 +1,9 @@
+<launch>
+  <param name="/sac_ground_removal/z_threshold" value="0.1" />
+  <param name="/sac_ground_removal/sac_distance_threshold" value="0.03" />
+  <param name="/sac_ground_removal/planar_refine" value="1" />
+
+  <node pkg="semantic_point_annotator" type="sac_ground_removal_node" name="sac_ground_removal" respawn="true" output="screen">
+    <remap from="full_cloud" to="snapshot_cloud" />
+  </node>
+</launch>

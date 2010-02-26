@@ -1,0 +1,22 @@
+<package>
+  <description brief="pr2_navigation_self_filter">
+
+     pr2_navigation_self_filter
+
+  </description>
+  <author>Eitan Marder-Eppstein</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/pr2_navigation_self_filter</url>
+  <depend package="roscpp"/>
+  <depend package="tf"/>
+  <depend package="filters"/>
+  <depend package="sensor_msgs"/>
+  <depend package="urdf"/>
+  <depend package="bullet"/>
+  <depend package="resource_retriever"/>
+  <depend package="visualization_msgs"/>
+
+</package>
+
+

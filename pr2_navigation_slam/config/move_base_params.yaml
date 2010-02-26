@@ -1,0 +1,12 @@
+controller_patience: 2.0
+
+recovery_behaviors: [{name: conservative_clear, type: ClearCostmapRecovery}, {name: aggressive_clear, type: ClearCostmapRecovery}]
+
+NavfnROS:
+  allow_unknown: false
+
+conservative_clear:
+  reset_distance: 3.0
+
+aggressive_clear:
+  reset_distance: 1.84

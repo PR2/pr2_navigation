@@ -1,0 +1,32 @@
+<package>
+  <description brief="pr2_navigation_perception">
+
+     pr2_navigation_perception
+
+  </description>
+  <author>Eitan Marder-Eppstein</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/pr2_navigation_perception</url>
+  <depend package="semantic_point_annotator"/>
+  <depend package="laser_filters"/>
+  <depend package="pr2_tilt_laser_profile"/>
+  <depend package="pr2_machine"/>
+  <depend package="topic_tools"/>
+  <depend package="pr2_navigation_self_filter"/>
+  <depend package="geometry_msgs"/>
+  <depend package="dynamic_reconfigure"/>
+  <depend package="sensor_msgs"/>
+  <depend package="roscpp"/>
+  <depend package="tf"/>
+  <depend package="filters"/>
+  <depend package="message_filters"/>
+  <depend package="laser_geometry"/>
+
+  <export>
+    <filters plugin="${prefix}/config/pr2_laser_filters/pr2_laser_filters_plugins.xml" />
+  </export>
+
+</package>
+
+

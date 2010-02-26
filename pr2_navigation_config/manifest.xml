@@ -1,0 +1,8 @@
+<package>
+  <description>Holds common configuration settings for the navigation stack on a PR2 robot.</description>
+  <author>Eitan Marder-Eppstein</author>
+  <license>BSD</license>
+  <review status="na" notes=""/>
+  <url>http://pr.willowgarage.com/wiki</url>
+  <depend package="move_base"/>
+</package>

@@ -1,0 +1,23 @@
+<launch>
+  <param name="/semantic_point_annotator/rule_floor"     value="0.3" />
+  <param name="/semantic_point_annotator/rule_ceiling"   value="2.0" />
+  <param name="/semantic_point_annotator/rule_table_min" value="0.5" />
+  <param name="/semantic_point_annotator/rule_table_max" value="1.5" />
+  <param name="/semantic_point_annotator/rule_wall"      value="2.0" />
+
+  <param name="/semantic_point_annotator/min_cluster_pts" value="200" />
+
+  <param name="/semantic_point_annotator/region_growing_tolerance" value="0.25" />
+  <param name="/semantic_point_annotator/region_angle_threshold"   value="30.0" />
+
+  <param name="/semantic_point_annotator/p_sac_min_points_left"       value="10" />
+  <param name="/semantic_point_annotator/p_sac_min_points_per_model"  value="10" />
+  <param name="/semantic_point_annotator/p_sac_distance_threshold"    value="0.05" />
+  <param name="/semantic_point_annotator/p_eps_angle"                 value="15.0" />
+
+  <param name="/semantic_point_annotator/create_polygonal_map"     value="true" />
+  <param name="/semantic_point_annotator/concave"                  value="false" />
+  <param name="/semantic_point_annotator/boundary_angle_threshold" value="120.0" />
+
+  <node pkg="semantic_point_annotator" type="semantic_point_annotator_node" name="semantic_point_annotator" output="screen" respawn="true" />
+</launch>
