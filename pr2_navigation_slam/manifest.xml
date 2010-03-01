@@ -11,6 +11,7 @@
   <depend package="gmapping"/>
   <depend package="pr2_machine"/>
   <depend package="move_base"/>
+  <depend package="pr2_navigation_config"/>
 
 </package>
 
