@@ -1,8 +1,6 @@
 <package>
-  <description brief="pr2_navigation_local">
-
-     pr2_navigation_local
-
+  <description brief="Launch files for running the navigation stack on a PR2 in an odometric frame.">
+    This package holds launch files for running the [[navigation]] stack on a PR2 robot in an odometric frame. No static map is needed for the [[navigation]] stack in this configuration.
   </description>
   <author>Eitan Marder-Eppstein</author>
   <license>BSD</license>

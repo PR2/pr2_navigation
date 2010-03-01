@@ -1,7 +1,7 @@
 <package>
-  <description brief="pr2_navigation_perception">
+  <description brief="PR2 navigation-specific sensor configurations.">
 
-     pr2_navigation_perception
+     This package holds navigation-specific sensor configuration options and launch files for the PR2.
 
   </description>
   <author>Eitan Marder-Eppstein</author>

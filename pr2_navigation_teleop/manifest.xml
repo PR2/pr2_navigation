@@ -1,8 +1,7 @@
 <package>
-  <description brief="pr2_navigation_teleop">
-
-     pr2_navigation_teleop
-
+  <description brief="Teleop configuration for the PR2 while running navigation.">
+     This package holds a special teleop configuration for the PR2 robot that
+     should be used when running applications that use autonomous navigation.
   </description>
   <author>Eitan Marder-Eppstein</author>
   <license>BSD</license>

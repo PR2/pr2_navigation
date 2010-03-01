@@ -1,5 +1,7 @@
 <package>
-  <description>Holds common configuration settings for the navigation stack on a PR2 robot.</description>
+  <description brief="PR2-specific move_base configuration">
+  This package holds common configuration files for running the [[move_base]] node on the PR2 robot.
+  </description>
   <author>Eitan Marder-Eppstein</author>
   <license>BSD</license>
   <review status="na" notes=""/>

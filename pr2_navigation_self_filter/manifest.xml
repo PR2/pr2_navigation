@@ -1,7 +1,7 @@
 <package>
   <description brief="pr2_navigation_self_filter">
 
-     pr2_navigation_self_filter
+     Filters the robot's body out of point clouds.
 
   </description>
   <author>Eitan Marder-Eppstein</author>

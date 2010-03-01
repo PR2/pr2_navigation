@@ -1,8 +1,6 @@
 <package>
-  <description brief="pr2_navigation_slam">
-
-     pr2_navigation_slam
-
+  <description brief="Launch files for running SLAM with autonomous navigation on a PR2 robot.">
+    This package holds launch files for running the [[navigation]] stack in conjunction with [[gmapping | SLAM]] on a PR2 robot.
   </description>
   <author>Eitan Marder-Eppstein</author>
   <license>BSD</license>
