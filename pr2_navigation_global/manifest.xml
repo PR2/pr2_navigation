@@ -1,7 +1,7 @@
 <package>
   <description brief="XML files for running global navigation assuming a static map on a PR2 robot.">
 
-     This package holds XML files for running the [[move_base]] node on a PR2 robot. The [[move_base]] node is configured to run over a pre-specified static map.
+     This package holds XML files for running the <a href="http://www.ros.org/wiki/move_base">move_base</a> node on a PR2 robot. The <a href="http://www.ros.org/wiki/move_base">move_base</a> node is configured to run over a pre-specified static map.
 
   </description>
   <author>Eitan Marder-Eppstein</author>

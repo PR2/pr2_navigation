@@ -1,7 +1,7 @@
 <stack>
   <description brief="Common configuration options for planar navigation applications on the PR2 robot.">
   The pr2_navigation stack holds common configuration options for running the
-  [[navigation]] stack on a PR2 robot. The packages in this stack are used by
+  <a href="http://www.ros.org/wiki/navigation">navigation</a> stack on a PR2 robot. The packages in this stack are used by
   many PR2-specific applications that use planar navigation.
   </description>
   <author>Maintained by Eitan Marder-Eppstein</author>

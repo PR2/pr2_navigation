@@ -1,6 +1,6 @@
 <package>
   <description brief="XML files for running SLAM with the move_base node on a PR2 robot.">
-    This package holds launch files for running the [[move_base]] node in conjunction with [[gmapping | SLAM]] on a PR2 robot.
+    This package holds launch files for running the <a href="http://www.ros.org/wiki/move_base">move_base</a> node in conjunction with [[gmapping | SLAM]] on a PR2 robot.
   </description>
   <author>Eitan Marder-Eppstein</author>
   <license>BSD</license>
