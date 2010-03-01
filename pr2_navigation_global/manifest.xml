@@ -1,7 +1,7 @@
 <package>
-  <description brief="Launch files for running global navigation assuming a static map on a PR2 robot.">
+  <description brief="XML files for running global navigation assuming a static map on a PR2 robot.">
 
-     This package holds launch files for running the [[navigation]] stack on a PR2 robot. The navigation stack is configured to run over a pre-specified static map.
+     This package holds XML files for running the [[move_base]] node on a PR2 robot. The [[move_base]] node is configured to run over a pre-specified static map.
 
   </description>
   <author>Eitan Marder-Eppstein</author>
