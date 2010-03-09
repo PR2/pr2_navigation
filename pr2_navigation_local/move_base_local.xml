@@ -1,6 +1,23 @@
 <launch>
   <include file="$(find pr2_machine)/$(env ROBOT).machine" />
 
+  <!-- Bring up the tilt_laser aware version of move_base -->
+  <node pkg="pr2_move_base" name="pr2_move_base_node" type="pr2_move_base.py" machine="c2" output="screen">
+    <!-- Change the name of the action that we're using -->
+    <remap from="move_base/goal" to="move_base_local/goal" />
+    <remap from="move_base/result" to="move_base_local/result" />
+    <remap from="move_base/feedback" to="move_base_local/feedback" />
+    <remap from="move_base/status" to="move_base_local/status" />
+    <remap from="move_base/cancel" to="move_base_local/cancel" />
+
+    <!-- Change our action name -->
+    <remap from="pr2_move_base/goal" to="pr2_move_base_local/goal" />
+    <remap from="pr2_move_base/result" to="pr2_move_base_local/result" />
+    <remap from="pr2_move_base/feedback" to="pr2_move_base_local/feedback" />
+    <remap from="pr2_move_base/status" to="pr2_move_base_local/status" />
+    <remap from="pr2_move_base/cancel" to="pr2_move_base_local/cancel" />
+  </node>
+
   <!-- Throttle the voxel grid that is being published for rviz -->
   <node ns="move_base_local_node/local_costmap" pkg="topic_tools" type="throttle" name="voxel_grid_throttle" args="messages voxel_grid 3.0 voxel_grid_throttled" />
 
