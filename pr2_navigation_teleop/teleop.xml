@@ -1,7 +1,7 @@
 <launch>
 
-<!-- Bring up the mux that will switch between teleop and navigation commands -->
-<node pkg="topic_tools" type="mux" name="cmd_vel_mux" respawn="true" args="base_controller/command navigation/cmd_vel teleop/cmd_vel">
+<!-- Bring up the mux that will switch between teleop and navigation commands. TODO: When mux is fixed, remove slash infront of topic names so that things can be pushed into a namespace -->
+<node pkg="topic_tools" type="mux" name="cmd_vel_mux" respawn="true" args="base_controller/command /navigation/cmd_vel /teleop/cmd_vel">
   <remap from="mux" to="cmd_vel_mux" />
 </node>
 
