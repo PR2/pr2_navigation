@@ -1,6 +1,16 @@
 <launch>
+
+<!-- Bring up the mux that will switch between teleop and navigation commands -->
+<node pkg="topic_tools" type="mux" name="cmd_vel_mux" respawn="true" args="base_controller/command navigation/cmd_vel teleop/cmd_vel">
+  <remap from="mux" to="cmd_vel_mux" />
+</node>
+
 <node pkg="pr2_teleop" type="teleop_pr2" name="teleop_pr2" args="--deadman_no_publish" respawn="true" machine="c2">
-    <remap from="cmd_vel" to="base_controller/command" />
+    <remap from="cmd_vel" to="teleop/cmd_vel" />
+
+    <!-- Mux stuff -->
+    <remap from="mux" to="cmd_vel_mux" />
+    <param name="use_mux" value="true" type="bool" />
 
     <!-- Axes -->
     <param name="axis_vx" value="3" type="int"/>

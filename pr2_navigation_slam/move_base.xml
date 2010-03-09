@@ -9,7 +9,7 @@
 
   <node pkg="move_base" type="move_base" name="move_base_node" machine="c2">
     <remap from="odom" to="base_odometry/odom" />
-    <remap from="cmd_vel" to="base_controller/command" />
+    <remap from="cmd_vel" to="navigation/cmd_vel" />
 
     <!-- Load common configuration files -->
     <rosparam file="$(find pr2_navigation_config)/move_base/move_base_params.yaml" command="load" />

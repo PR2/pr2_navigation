@@ -23,7 +23,7 @@
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base_local_node" machine="c2">
     <remap from="odom" to="base_odometry/odom" />
-    <remap from="cmd_vel" to="base_controller/command" />
+    <remap from="cmd_vel" to="navigation/cmd_vel" />
 
     <!-- Change the name of the action that we're using -->
     <remap from="move_base" to="move_base_local" />
