@@ -4,7 +4,7 @@ scan_filter_chain:
   params:
     min_angle: 10
     max_angle: 170
-    neighbors: 20
+    neighbors: 40
     window: 1
 - name: dark_shadows
   type: LaserScanIntensityFilter
@@ -15,5 +15,5 @@ scan_filter_chain:
 - name: angular_bounds
   type: LaserScanAngularBoundsFilter
   params:
-    lower_angle: -1.22173048
-    upper_angle: 1.22173048
+    lower_angle: -1.047
+    upper_angle: 1.047

@@ -5,7 +5,7 @@
   <remap from="cloud_ground_filtered" to="ground_object_cloud" />
   <param name="z_threshold" value="0.15" />
   <param name="sac_min_points_per_model" value="40" />
-  <param name="sac_distance_threshold" value="0.05" />
+  <param name="sac_distance_threshold" value="0.10" />
   <param name="planar_refine" value="1" />
 </node>
 </launch>
