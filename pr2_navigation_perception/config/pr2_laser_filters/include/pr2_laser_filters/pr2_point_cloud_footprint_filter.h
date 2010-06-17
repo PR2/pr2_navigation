@@ -70,11 +70,14 @@ public:
       return false;
     }
 
+    // Commented out because this feature is broken in filters
+    /*
     if(!getParam("frame_id", frame_id_))
     {
       ROS_ERROR("PR2LaserScanFootprintFilter needs length to be set");
       return false;
     }
+    */
     return true;
   }
 
