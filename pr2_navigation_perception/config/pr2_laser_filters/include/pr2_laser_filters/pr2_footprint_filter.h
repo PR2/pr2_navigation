@@ -59,9 +59,22 @@ public:
 
   bool configure()
   {
-    if(!getParam("inscribed_radius", inscribed_radius_))
+    if(!getParam("x_radius", x_radius_))
     {
-      ROS_ERROR("PR2LaserScanFootprintFilter needs inscribed_radius to be set");
+      ROS_ERROR("PR2LaserScanFootprintFilter needs x_radius to be set");
+      return false;
+    }
+
+    if(!getParam("y_radius", y_radius_))
+    {
+      ROS_ERROR("PR2LaserScanFootprintFilter needs y_radius to be set");
+      return false;
+    }
+
+    std::string name("frame_id");
+    if(!getParam(name, frame_id_))
+    {
+      ROS_ERROR("PR2LaserScanFootprintFilter needs length to be set");
       return false;
     }
     return true;
@@ -78,7 +91,7 @@ public:
     sensor_msgs::PointCloud laser_cloud;
 
     try{
-    projector_.transformLaserScanToPointCloud("base_link", input_scan, laser_cloud, tf_);
+    projector_.transformLaserScanToPointCloud(frame_id_, input_scan, laser_cloud, tf_);
     }
     catch(tf::TransformException& ex){
       ROS_ERROR("Transform unavailable %s", ex.what());
@@ -116,7 +129,7 @@ public:
   }
 
   bool inFootprint(const geometry_msgs::Point32& scan_pt){
-    if(scan_pt.x < -1.0 * inscribed_radius_ || scan_pt.x > inscribed_radius_ || scan_pt.y < -1.0 * inscribed_radius_ || scan_pt.y > inscribed_radius_)
+    if(scan_pt.x < -1.0 * x_radius_ || scan_pt.x > x_radius_ || scan_pt.y < -1.0 * y_radius_ || scan_pt.y > y_radius_)
       return false;
     return true;
   }
@@ -124,7 +137,8 @@ public:
 private:
   tf::TransformListener tf_;
   laser_geometry::LaserProjection projector_;
-  double inscribed_radius_;
+  double x_radius_, y_radius_;
+  std::string frame_id_;
 } ;
 
 }
