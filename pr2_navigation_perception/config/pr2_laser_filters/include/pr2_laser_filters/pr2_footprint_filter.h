@@ -72,11 +72,14 @@ public:
     }
 
     std::string name("frame_id");
+    // Commented out because this feature is broken in filters
+    /*
     if(!getParam(name, frame_id_))
     {
       ROS_ERROR("PR2LaserScanFootprintFilter needs length to be set");
       return false;
     }
+    */
     return true;
   }
 
