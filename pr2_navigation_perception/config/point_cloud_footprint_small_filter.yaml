@@ -1,0 +1,7 @@
+cloud_filter_chain:
+- type: PR2PointCloudFootprintFilterNew
+  name: footprint_filter
+  params:
+    frame_id: cart_link
+    y_radius: 0.325
+    x_radius: 0.325
