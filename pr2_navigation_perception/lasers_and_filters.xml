@@ -25,7 +25,7 @@
 
 <!-- Marking: Filter for tilt laser scans that hit the body of the robot -->
 <!-- IN: x_scan_shadow_filtered  OUT: x_scan_filtered -->
-<node pkg="pr2_navigation_self_filter" type="self_filter" name="tilt_laser_self_filter" respawn="true" output="screen">
+<node pkg="pr2_navigation_self_filter" type="self_filter" name="tilt_laser_self_filter_nav" respawn="true" output="screen">
   <!-- The topic for the input cloud -->
   <remap from="cloud_in" to="tilt_scan_shadow_filtered" />
   <!-- The topic for the output cloud -->
@@ -36,7 +36,7 @@
     shadow points will be considered outside -->
   <param name="sensor_frame" type="string" value="laser_tilt_link" />
 </node>
-<node pkg="pr2_navigation_self_filter" type="self_filter" name="base_laser_self_filter" respawn="true" output="screen">
+<node pkg="pr2_navigation_self_filter" type="self_filter" name="base_laser_self_filter_nav" respawn="true" output="screen">
   <!-- The topic for the input cloud -->
   <remap from="cloud_in" to="base_scan_shadow_filtered" />
   <!-- The topic for the output cloud -->
