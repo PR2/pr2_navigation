@@ -1,0 +1,11 @@
+<class_libraries>
+  <library path="lib/liblaser_tilt_controller_filter">
+    <class name="laser_tilt_controller_filter/LaserTiltControllerFilter" 
+           type="laser_tilt_controller_filter::LaserTiltControllerFilter" 
+           base_class_type="filters::FilterBase<sensor_msgs::LaserScan>">
+      <description>
+      This is a filter which removes scans in certain sections of a tilt profile.
+      </description>
+    </class>
+  </library>
+</class_libraries>
