@@ -17,3 +17,8 @@ scan_filter_chain:
   params:
     lower_angle: -1.22173048
     upper_angle: 1.22173048
+- name: downscan_filter
+  type: laser_tilt_controller_filter/LaserTiltControllerFilter
+  params:
+    filter_sections: [1]
+    tilt_profile_times: [0.0, 1.8, 2.3125]
