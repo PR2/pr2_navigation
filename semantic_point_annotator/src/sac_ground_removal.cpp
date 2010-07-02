@@ -225,7 +225,8 @@ class GroundRemoval
       //check to see if the point cloud is empty
       if (cloud_.points.empty ())
       {
-        ROS_WARN ("Received an empty point cloud");
+        ROS_DEBUG("Received an empty point cloud");
+        cloud_publisher_.publsih(msg);
         return;
       }
 

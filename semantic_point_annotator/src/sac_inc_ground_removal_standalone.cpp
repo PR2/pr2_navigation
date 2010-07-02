@@ -395,7 +395,8 @@ class IncGroundRemoval
       laser_cloud_ = *msg;
       //check to see if the point cloud is empty
       if(laser_cloud_.points.empty()){
-        ROS_WARN("Received an empty point cloud");
+        ROS_DEBUG("Received an empty point cloud");
+        cloud_publisher_.publish(msg);
         return;
       }
 
