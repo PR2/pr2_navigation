@@ -10,7 +10,6 @@
   <url>http://ros.org/wiki/pr2_navigation_perception</url>
   <depend package="semantic_point_annotator"/>
   <depend package="laser_filters"/>
-  <depend package="pr2_tilt_laser_profile"/>
   <depend package="pr2_machine"/>
   <depend package="topic_tools"/>
   <depend package="pr2_navigation_self_filter"/>

@@ -8,7 +8,7 @@
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/pr2_navigation</url>
-  <depend stack="common" /> <!-- actionlib, filters -->
+  <depend stack="common" /> <!-- actionlib, filters, pluginlib -->
   <depend stack="common_msgs" /> <!-- geometry_msgs, actionlib_msgs, sensor_msgs -->
   <depend stack="driver_common" /> <!-- dynamic_reconfigure -->
   <depend stack="geometry" /> <!-- tf, eigen, bullet -->
@@ -16,7 +16,6 @@
   <depend stack="navigation" /> <!-- move_base, move_base_msgs, amcl -->
   <depend stack="pr2_apps" /> <!-- pr2_teleop -->
   <depend stack="pr2_common" /> <!-- pr2_machine, pr2_msgs -->
-  <depend stack="pr2_common_actions" /> <!-- pr2_tilt_laser_profile -->
   <depend stack="robot_model" /> <!-- urdf, resource_retriever -->
   <depend stack="ros" /> <!-- topic_tools, rospy, roscpp, message_filters -->
   <depend stack="slam_gmapping" /> <!-- gmapping -->
