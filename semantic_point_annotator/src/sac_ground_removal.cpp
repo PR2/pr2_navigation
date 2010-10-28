@@ -240,7 +240,7 @@ class GroundRemoval
       if (cloud_.points.size () == 0)
         return;
 
-      updateParametersFromServer ();
+      //updateParametersFromServer ();
       // Copy the header
       cloud_noground_.header = cloud_.header;
 
