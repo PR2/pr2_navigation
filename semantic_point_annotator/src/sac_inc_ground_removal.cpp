@@ -280,7 +280,7 @@ class IncGroundRemoval
       getCloudViewPoint (cloud_.header.frame_id, viewpoint_cloud_, &tf_);
 
       // Transform z_threshold_ from the parameter parameter frame (parameter_frame_) into the point cloud frame
-      z_threshold_ = transformDoubleValueTF (z_threshold_, robot_footprint_frame_, cloud_.header.frame_id, cloud_.header.stamp, &tf_);
+      double z_threshold_cloud = transformDoubleValueTF (z_threshold_, robot_footprint_frame_, cloud_.header.frame_id, cloud_.header.stamp, &tf_);
 
       // Select points whose Z dimension is close to the ground (0,0,0 in base_footprint) or under a gentle slope (allowing for pitch/roll error)
       vector<int> possible_ground_indices (cloud_.points.size ());
@@ -289,7 +289,7 @@ class IncGroundRemoval
       for (unsigned int cp = 0; cp < cloud_.points.size (); cp++)
       {
         all_indices[cp] = cp;
-        if (fabs (cloud_.points[cp].z) < z_threshold_ || // max height for ground
+        if (fabs (cloud_.points[cp].z) < z_threshold_cloud || // max height for ground
             cloud_.points[cp].z*cloud_.points[cp].z < ground_slope_threshold_ * (cloud_.points[cp].x*cloud_.points[cp].x + cloud_.points[cp].y*cloud_.points[cp].y)) // max slope for ground 
         {
           possible_ground_indices[nr_p] = cp;
