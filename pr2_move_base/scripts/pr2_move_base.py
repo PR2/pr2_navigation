@@ -46,6 +46,7 @@ from pr2_msgs.srv import SetLaserTrajCmd
 from actionlib_msgs.msg import GoalStatus
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal, MoveBaseResult, MoveBaseFeedback
 import dynamic_reconfigure.client
+from pr2_controllers_msgs.msg import PointHeadAction, PointHeadGoal
 
 def feedback_cb(feedback):
   server.publish_feedback(feedback)
@@ -63,6 +64,23 @@ def set_tilt_profile(position, time_from_start):
     rospy.logerr("Couldn't set the profile on the laser. Exception %s" % e)
     return False
   return True
+
+def configure_head():
+  head_client = actionlib.SimpleActionClient('head_traj_controller/point_head_action', PointHeadAction)
+  head_client.wait_for_server()
+  point_head_goal = PointHeadGoal()
+  point_head_goal.target.header.frame_id = 'base_link'
+  point_head_goal.target.point.x = 3.0
+  point_head_goal.target.point.y = 0.0
+  point_head_goal.target.point.z = 1.0
+  point_head_goal.pointing_frame = 'head_pan_link'
+  point_head_goal.pointing_axis.x = 1
+  point_head_goal.pointing_axis.y = 0
+  point_head_goal.pointing_axis.z = 0
+
+  head_client.send_goal(point_head_goal)
+  head_client.wait_for_result(rospy.Duration(5.0))
+
 
 def configure_laser():
   #TODO: remove hack to get things working in gazebo
@@ -101,6 +119,7 @@ def execute_cb(goal):
     return
 
   configure_laser()
+  configure_head()
 
   move_base_client.send_goal(goal, None, None, feedback_cb)
 
