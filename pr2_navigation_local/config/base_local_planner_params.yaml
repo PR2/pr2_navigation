@@ -4,4 +4,4 @@ TrajectoryPlannerROS:
   max_rotational_vel: 1.0
   min_in_place_rotational_vel: 0.25
   xy_goal_tolerance: 0.08
-  yaw_goal_tolerance: 0.02
+  yaw_goal_tolerance: 0.05
