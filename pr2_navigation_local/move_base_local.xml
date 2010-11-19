@@ -19,7 +19,7 @@
   </node>
 
   <!-- Throttle the voxel grid that is being published for rviz -->
-  <node ns="move_base_local_node/local_costmap" pkg="topic_tools" type="throttle" name="voxel_grid_throttle" args="messages voxel_grid 3.0 voxel_grid_throttled" />
+  <node ns="move_base_local_node/local_costmap" pkg="topic_tools" type="throttle" name="voxel_grid_throttle" machine="c2" args="messages voxel_grid 3.0 voxel_grid_throttled" />
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base_local_node" machine="c2">
     <remap from="odom" to="base_odometry/odom" />
