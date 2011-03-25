@@ -15,12 +15,12 @@
     <rosparam file="$(find pr2_navigation_config)/move_base/move_base_params.yaml" command="load" />
     <rosparam file="$(find pr2_navigation_config)/move_base/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find pr2_navigation_config)/move_base/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find pr2_navigation_config)/move_base/base_local_planner_params.yaml" command="load" ns="TrajectoryPlannerROS" />
+    <rosparam file="$(find pr2_navigation_config)/move_base/dwa_local_planner.yaml" command="load" ns="DWAPlannerROS" />
+    <rosparam file="$(find pr2_navigation_config)/move_base/recovery_behaviors.yaml" command="load" />
 
     <!-- Load slam navigation specific parameters -->
     <rosparam file="$(find pr2_navigation_slam)/config/move_base_params.yaml" command="load" />
     <rosparam file="$(find pr2_navigation_slam)/config/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find pr2_navigation_slam)/config/local_costmap_params.yaml" command="load"  />
-    <rosparam file="$(find pr2_navigation_slam)/config/base_local_planner_params.yaml" command="load" />
   </node>
 </launch>

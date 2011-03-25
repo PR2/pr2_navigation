@@ -12,16 +12,19 @@
     <remap from="odom" to="base_odometry/odom" />
     <remap from="cmd_vel" to="navigation/cmd_vel" />
 
+    <!-- Use the dwa local planner for the PR2 -->
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+
     <!-- Load common configuration files -->
     <rosparam file="$(find pr2_navigation_config)/move_base/move_base_params.yaml" command="load" />
     <rosparam file="$(find pr2_navigation_config)/move_base/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find pr2_navigation_config)/move_base/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find pr2_navigation_config)/move_base/base_local_planner_params.yaml" command="load" ns="TrajectoryPlannerROS" />
+    <rosparam file="$(find pr2_navigation_config)/move_base/dwa_local_planner.yaml" command="load" ns="DWAPlannerROS" />
+    <rosparam file="$(find pr2_navigation_config)/move_base/recovery_behaviors.yaml" command="load" />
 
     <!-- Load global navigation specific parameters -->
     <rosparam file="$(find pr2_navigation_global)/config/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find pr2_navigation_global)/config/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find pr2_navigation_global)/config/base_local_planner_params.yaml" command="load" />
   </node>
 
 </launch>
