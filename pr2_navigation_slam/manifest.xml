@@ -11,6 +11,7 @@
   <depend package="move_base"/>
   <depend package="pr2_navigation_config"/>
   <depend package="pr2_move_base"/>
+  <depend package="topic_tools"/>
 
 </package>
 
