@@ -44,6 +44,7 @@
 // ROS messages
 #include <sensor_msgs/PointCloud.h>
 #include <Eigen/QR>
+#include <Eigen/Eigenvalues>
 // Sample Consensus
 #include <sac.h>
 #include <ransac.h>

@@ -35,6 +35,7 @@
 
 #include <Eigen/Core>
 #include <Eigen/QR>
+#include <Eigen/Eigenvalues>
 #include <sac_model_line.h>
 
 namespace sample_consensus
@@ -171,10 +172,10 @@ namespace sample_consensus
   {
     // Allocate enough space
     projected_points.points.resize (inliers.size ());
-    projected_points.set_channels_size (cloud_->get_channels_size ());
+    projected_points.channels.resize (cloud_->channels.size ());
 
     // Create the channels
-    for (unsigned int d = 0; d < projected_points.get_channels_size (); d++)
+    for (unsigned int d = 0; d < projected_points.channels.size (); d++)
     {
       projected_points.channels[d].name = cloud_->channels[d].name;
       projected_points.channels[d].values.resize (inliers.size ());
@@ -198,7 +199,7 @@ namespace sample_consensus
       projected_points.points[i].y = model_coefficients_.at (1) + k * p21.y;
       projected_points.points[i].z = model_coefficients_.at (2) + k * p21.z;
       // Copy the other attributes
-      for (unsigned int d = 0; d < projected_points.get_channels_size (); d++)
+      for (unsigned int d = 0; d < projected_points.channels.size (); d++)
         projected_points.channels[d].values[i] = cloud_->channels[d].values[inliers.at (i)];
     }
   }
