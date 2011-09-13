@@ -4,3 +4,5 @@ controller_frequency: 10.0
 controller_patience: 15.0
 clearing_radius: 0.59
 footprint_padding: 0.015
+oscillation_timeout: 10.0
+oscillation_distance: 0.5
