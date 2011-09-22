@@ -77,7 +77,7 @@ def configure_head():
     point_head_goal.target.point.x = 3.0
     point_head_goal.target.point.y = 0.0
     point_head_goal.target.point.z = 1.0
-    point_head_goal.pointing_frame = 'head_pan_link'
+    point_head_goal.pointing_frame = 'head_tilt_link'
     point_head_goal.pointing_axis.x = 1
     point_head_goal.pointing_axis.y = 0
     point_head_goal.pointing_axis.z = 0
