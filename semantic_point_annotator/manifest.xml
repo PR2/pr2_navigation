@@ -9,7 +9,6 @@
   <review status="experimental" notes="beta"/>
 
   <depend package="roscpp" />
-  <depend package="eigen" />
   <depend package="tf" />
   
 </package>
