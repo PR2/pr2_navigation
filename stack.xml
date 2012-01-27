@@ -12,7 +12,6 @@
   <depend stack="common" /> <!-- actionlib -->
   <depend stack="common_msgs" /> <!-- sensor_msgs, actionlib_msgs, geometry_msgs, visualization_msgs -->
   <depend stack="driver_common" /> <!-- dynamic_reconfigure -->
-  <depend stack="eigen" /> <!-- eigen -->
   <depend stack="filters" /> <!-- filters -->
   <depend stack="geometry" /> <!-- tf -->
   <depend stack="laser_pipeline" /> <!-- laser_filters, laser_geometry -->
