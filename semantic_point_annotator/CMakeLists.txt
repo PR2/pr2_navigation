@@ -18,6 +18,7 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #rosbuild_add_executable(sac_ground_removal_node src/sac_ground_removal.cpp)
 #rosbuild_add_executable(sac_inc_ground_removal_node src/sac_inc_ground_removal.cpp)
 rosbuild_add_executable(sac_inc_ground_removal_node src/sac_inc_ground_removal_standalone.cpp src/sac/sac.cpp src/sac/ransac.cpp src/sac/sac_model.cpp src/sac/sac_model_line.cpp)
+rosbuild_link_boost(sac_inc_ground_removal_node signals)
 
 # check for OpenMP
 include(CheckIncludeFile)

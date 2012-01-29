@@ -128,15 +128,15 @@ struct LinkInfo
 	
 	/** \brief Assume subsequent calls to getMaskX() will be in the frame passed to this function.
 	 *   The frame in which the sensor is located is optional */
-	void assumeFrame(const roslib::Header& header);
+	void assumeFrame(const std_msgs::Header& header);
 	
 	/** \brief Assume subsequent calls to getMaskX() will be in the frame passed to this function.
 	 *   The frame in which the sensor is located is optional */
-	void assumeFrame(const roslib::Header& header, const std::string &sensor_frame, const double min_sensor_dist);
+	void assumeFrame(const std_msgs::Header& header, const std::string &sensor_frame, const double min_sensor_dist);
 
 	/** \brief Assume subsequent calls to getMaskX() will be in the frame passed to this function.
 	 *  Also specify which possition to assume for the sensor (frame is not needed) */
-	void assumeFrame(const roslib::Header& header, const btVector3 &sensor_pos, const double min_sensor_dist);
+	void assumeFrame(const std_msgs::Header& header, const btVector3 &sensor_pos, const double min_sensor_dist);
 	
 	/** \brief Get the containment mask (INSIDE or OUTSIDE) value for an individual point. No
 	    setup is performed, assumeFrame() should be called before use */

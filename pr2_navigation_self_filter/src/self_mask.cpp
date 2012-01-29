@@ -276,14 +276,14 @@ void robot_self_filter::SelfMask::computeBoundingSpheres(void)
     }
 }
 
-void robot_self_filter::SelfMask::assumeFrame(const roslib::Header& header, const btVector3 &sensor_pos, double min_sensor_dist)
+void robot_self_filter::SelfMask::assumeFrame(const std_msgs::Header& header, const btVector3 &sensor_pos, double min_sensor_dist)
 {
     assumeFrame(header);
     sensor_pos_ = sensor_pos;
     min_sensor_dist_ = min_sensor_dist;
 }
 
-void robot_self_filter::SelfMask::assumeFrame(const roslib::Header& header, const std::string &sensor_frame, double min_sensor_dist)
+void robot_self_filter::SelfMask::assumeFrame(const std_msgs::Header& header, const std::string &sensor_frame, double min_sensor_dist)
 {
   
   assumeFrame(header);
@@ -311,7 +311,7 @@ void robot_self_filter::SelfMask::assumeFrame(const roslib::Header& header, cons
   min_sensor_dist_ = min_sensor_dist;
 }
 
-void robot_self_filter::SelfMask::assumeFrame(const roslib::Header& header)
+void robot_self_filter::SelfMask::assumeFrame(const std_msgs::Header& header)
 {
     const unsigned int bs = bodies_.size();
     
