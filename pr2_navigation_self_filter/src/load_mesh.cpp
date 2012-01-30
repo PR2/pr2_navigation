@@ -47,7 +47,7 @@ namespace shapes
     {
 	struct myVertex
 	{
-	    btVector3    point;
+	    tf::Vector3    point;
 	    unsigned int index;
 	};
 	
@@ -55,8 +55,8 @@ namespace shapes
 	{
 	    bool operator()(const myVertex &p1, const myVertex &p2) const
 	    {
-		const btVector3 &v1 = p1.point;
-		const btVector3 &v2 = p2.point;
+		const tf::Vector3 &v1 = p1.point;
+		const tf::Vector3 &v2 = p2.point;
 		if (v1.getX() < v2.getX())
 		    return true;
 		if (v1.getX() > v2.getX())
@@ -80,7 +80,7 @@ namespace shapes
 	};
     }
     
-    shapes::Mesh* createMeshFromVertices(const std::vector<btVector3> &vertices, const std::vector<unsigned int> &triangles)
+    shapes::Mesh* createMeshFromVertices(const std::vector<tf::Vector3> &vertices, const std::vector<unsigned int> &triangles)
     {
 	unsigned int nt = triangles.size() / 3;
 	shapes::Mesh *mesh = new shapes::Mesh(vertices.size(), nt);
@@ -96,9 +96,9 @@ namespace shapes
 	// compute normals 
 	for (unsigned int i = 0 ; i < nt ; ++i)
 	{
-	    btVector3 s1 = vertices[triangles[i * 3    ]] - vertices[triangles[i * 3 + 1]];
-	    btVector3 s2 = vertices[triangles[i * 3 + 1]] - vertices[triangles[i * 3 + 2]];
-	    btVector3 normal = s1.cross(s2);
+	    tf::Vector3 s1 = vertices[triangles[i * 3    ]] - vertices[triangles[i * 3 + 1]];
+	    tf::Vector3 s2 = vertices[triangles[i * 3 + 1]] - vertices[triangles[i * 3 + 2]];
+	    tf::Vector3 normal = s1.cross(s2);
 	    normal.normalize();
 	    mesh->normals[3 * i    ] = normal.getX();
 	    mesh->normals[3 * i + 1] = normal.getY();
@@ -107,7 +107,7 @@ namespace shapes
 	return mesh;
     }
     
-    shapes::Mesh* createMeshFromVertices(const std::vector<btVector3> &source)
+    shapes::Mesh* createMeshFromVertices(const std::vector<tf::Vector3> &source)
     {
 	if (source.size() < 3)
 	    return NULL;
@@ -176,9 +176,9 @@ namespace shapes
 	// compute normals 
 	for (unsigned int i = 0 ; i < nt ; ++i)
 	{
-	    btVector3 s1 = vt[triangles[i * 3    ]].point - vt[triangles[i * 3 + 1]].point;
-	    btVector3 s2 = vt[triangles[i * 3 + 1]].point - vt[triangles[i * 3 + 2]].point;
-	    btVector3 normal = s1.cross(s2);
+	    tf::Vector3 s1 = vt[triangles[i * 3    ]].point - vt[triangles[i * 3 + 1]].point;
+	    tf::Vector3 s2 = vt[triangles[i * 3 + 1]].point - vt[triangles[i * 3 + 2]].point;
+	    tf::Vector3 normal = s1.cross(s2);
 	    normal.normalize();
 	    mesh->normals[3 * i    ] = normal.getX();
 	    mesh->normals[3 * i + 1] = normal.getY();
@@ -199,7 +199,7 @@ namespace shapes
 	// make sure we have read enough data
 	if ((long)(50 * numTriangles + 84) <= size)
 	{
-	    std::vector<btVector3> vertices;
+	    std::vector<tf::Vector3> vertices;
 	    
 	    for (unsigned int currentTriangle = 0 ; currentTriangle < numTriangles ; ++currentTriangle)
 	    {
@@ -207,9 +207,9 @@ namespace shapes
 		pos += 12;
 		
 		// read vertices 
-		btVector3 v1(0,0,0);
-		btVector3 v2(0,0,0);
-		btVector3 v3(0,0,0);
+		tf::Vector3 v1(0,0,0);
+		tf::Vector3 v2(0,0,0);
+		tf::Vector3 v3(0,0,0);
 		
 		v1.setX(*(float*)pos);
 		pos += 4;

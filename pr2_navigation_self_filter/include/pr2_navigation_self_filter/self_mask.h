@@ -73,7 +73,7 @@ struct LinkInfo
 	    std::string   name;
 	    bodies::Body *body;
 	    bodies::Body *unscaledBody;
-	    btTransform   constTransf;
+	    tf::Transform   constTransf;
 	    double        volume;
 	};
 	
@@ -115,7 +115,7 @@ struct LinkInfo
 	    the first intersection point on each body.
 	 */
 	void maskIntersection(const sensor_msgs::PointCloud& data_in, const std::string &sensor_frame, const double min_sensor_dist,
-			      std::vector<int> &mask, const boost::function<void(const btVector3&)> &intersectionCallback = NULL);
+			      std::vector<int> &mask, const boost::function<void(const tf::Vector3&)> &intersectionCallback = NULL);
 
 	/** \brief Compute the intersection mask for a given pointcloud. If a mask
 	    element can have one of the values INSIDE, OUTSIDE or SHADOW. If the value is SHADOW,
@@ -123,8 +123,8 @@ struct LinkInfo
 	    been seen. If the mask element is INSIDE, the point is inside
 	    the robot. The origin of the sensor is specified as well.
 	 */
-	void maskIntersection(const sensor_msgs::PointCloud& data_in, const btVector3 &sensor, const double min_sensor_dist,
-			      std::vector<int> &mask, const boost::function<void(const btVector3&)> &intersectionCallback = NULL);
+	void maskIntersection(const sensor_msgs::PointCloud& data_in, const tf::Vector3 &sensor, const double min_sensor_dist,
+			      std::vector<int> &mask, const boost::function<void(const tf::Vector3&)> &intersectionCallback = NULL);
 	
 	/** \brief Assume subsequent calls to getMaskX() will be in the frame passed to this function.
 	 *   The frame in which the sensor is located is optional */
@@ -136,7 +136,7 @@ struct LinkInfo
 
 	/** \brief Assume subsequent calls to getMaskX() will be in the frame passed to this function.
 	 *  Also specify which possition to assume for the sensor (frame is not needed) */
-	void assumeFrame(const std_msgs::Header& header, const btVector3 &sensor_pos, const double min_sensor_dist);
+	void assumeFrame(const std_msgs::Header& header, const tf::Vector3 &sensor_pos, const double min_sensor_dist);
 	
 	/** \brief Get the containment mask (INSIDE or OUTSIDE) value for an individual point. No
 	    setup is performed, assumeFrame() should be called before use */
@@ -144,17 +144,17 @@ struct LinkInfo
 	
 	/** \brief Get the containment mask (INSIDE or OUTSIDE) value for an individual point. No
 	    setup is performed, assumeFrame() should be called before use */
-	int  getMaskContainment(const btVector3 &pt) const;
+	int  getMaskContainment(const tf::Vector3 &pt) const;
 	
 	/** \brief Get the intersection mask (INSIDE, OUTSIDE or
 	    SHADOW) value for an individual point. No setup is
 	    performed, assumeFrame() should be called before use */
-	int  getMaskIntersection(double x, double y, double z, const boost::function<void(const btVector3&)> &intersectionCallback = NULL) const;
+	int  getMaskIntersection(double x, double y, double z, const boost::function<void(const tf::Vector3&)> &intersectionCallback = NULL) const;
 	
 	/** \brief Get the intersection mask (INSIDE, OUTSIDE or
 	    SHADOW) value for an individual point. No setup is
 	    performed, assumeFrame() should be called before use */
-	int  getMaskIntersection(const btVector3 &pt, const boost::function<void(const btVector3&)> &intersectionCallback = NULL) const;
+	int  getMaskIntersection(const tf::Vector3 &pt, const boost::function<void(const tf::Vector3&)> &intersectionCallback = NULL) const;
 	
 	/** \brief Get the set of link names that have been instantiated for self filtering */
 	void getLinkNames(std::vector<std::string> &frames) const;
@@ -174,12 +174,12 @@ struct LinkInfo
 	void maskAuxContainment(const sensor_msgs::PointCloud& data_in, std::vector<int> &mask);
 
 	/** \brief Perform the actual mask computation. */
-	void maskAuxIntersection(const sensor_msgs::PointCloud& data_in, std::vector<int> &mask, const boost::function<void(const btVector3&)> &callback);
+	void maskAuxIntersection(const sensor_msgs::PointCloud& data_in, std::vector<int> &mask, const boost::function<void(const tf::Vector3&)> &callback);
 	
 	tf::TransformListener              &tf_;
 	ros::NodeHandle                     nh_;
 	
-	btVector3                           sensor_pos_;
+	tf::Vector3                           sensor_pos_;
 	double                              min_sensor_dist_;
 	
 	std::vector<SeeLink>                bodies_;

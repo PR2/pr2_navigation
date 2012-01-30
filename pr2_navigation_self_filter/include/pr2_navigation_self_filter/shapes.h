@@ -39,7 +39,7 @@
 
 #include <cstdlib>
 #include <vector>
-#include <LinearMath/btVector3.h>
+#include <tf/LinearMath/Vector3.h>
 
 /** Definition of various shapes. No properties such as position are
     included. These are simply the descriptions and dimensions of
@@ -225,13 +225,13 @@ namespace shapes
 	constructed using index values from the triangles
 	vector. Triangle k has vertices at index values triangles[3k],
 	triangles[3k+1], triangles[3k+2]  */
-    Mesh* createMeshFromVertices(const std::vector<btVector3> &vertices, const std::vector<unsigned int> &triangles);
+    Mesh* createMeshFromVertices(const std::vector<tf::Vector3> &vertices, const std::vector<unsigned int> &triangles);
     
     /** \brief Load a mesh from a set of vertices. Every 3 vertices
 	are considered a triangle. Repeating vertices are identified
 	and the set of triangle indices is constructed. The normal at
 	each triangle is also computed */
-    Mesh* createMeshFromVertices(const std::vector<btVector3> &source);
+    Mesh* createMeshFromVertices(const std::vector<tf::Vector3> &source);
 
     /** \brief Load a mesh from a binary STL file. Normals are
 	recomputed and repeating vertices are identified. */
