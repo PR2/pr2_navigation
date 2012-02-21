@@ -32,4 +32,4 @@
 #include "filters/filter_base.h"
 #include "pluginlib/class_list_macros.h"
 
-PLUGINLIB_REGISTER_CLASS(PR2PointCloudFootprintFilterNew, pr2_laser_filters::PR2PointCloudFootprintFilterNew, filters::FilterBase<sensor_msgs::PointCloud>)
+PLUGINLIB_DECLARE_CLASS(pr2_navigation_perception, PR2PointCloudFootprintFilterNew, pr2_laser_filters::PR2PointCloudFootprintFilterNew, filters::FilterBase<sensor_msgs::PointCloud>)
