@@ -21,4 +21,3 @@ include_directories(${PROJECT_SOURCE_DIR}/config/pr2_laser_filters/include)
 rosbuild_add_boost_directories()
 
 rosbuild_add_library(pr2_point_cloud_filters config/pr2_laser_filters/src/pr2_point_cloud_filters.cpp)
-rosbuild_add_library(pr2_laser_scan_filters config/pr2_laser_filters/src/pr2_laser_scan_filters.cpp)
