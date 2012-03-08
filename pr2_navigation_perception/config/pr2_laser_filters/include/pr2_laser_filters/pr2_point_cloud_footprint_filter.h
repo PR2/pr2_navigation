@@ -48,13 +48,14 @@ This is useful for ground plane extraction
 #include <pcl_ros/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_ros/transforms.h>
+#include <sensor_msgs/PointCloud2.h>
 
 namespace pr2_laser_filters
 {
 
 typedef pcl::PointCloud<pcl::PointXYZ> PointCloud;
 
-class PR2PointCloudFootprintFilterNew : public filters::FilterBase<PointCloud>
+class PR2PointCloudFootprintFilterNew : public filters::FilterBase<sensor_msgs::PointCloud2>
 {
 public:
   PR2PointCloudFootprintFilterNew() {}
@@ -74,13 +75,15 @@ public:
 
   }
 
-  bool update(const PointCloud& input_scan, PointCloud& filtered_scan)
+  bool update(const sensor_msgs::PointCloud2& input_scan2, sensor_msgs::PointCloud2& filtered_scan2)
   {
-    if(&input_scan == &filtered_scan){
+    if(&input_scan2 == &filtered_scan2){
       ROS_ERROR("This filter does not currently support in place copying");
       return false;
     }
-    PointCloud laser_cloud;
+
+    PointCloud input_scan, filtered_scan, laser_cloud;
+    pcl::fromROSMsg(input_scan2, input_scan);
 
     try{
       tf_.waitForTransform(input_scan.header.frame_id, "base_link", input_scan.header.stamp, ros::Duration(0.2));
@@ -105,6 +108,7 @@ public:
 
     // Resize output vectors
     filtered_scan.points.resize (num_pts);
+    pcl::toROSMsg(filtered_scan, filtered_scan2);
 
     return true;
   }

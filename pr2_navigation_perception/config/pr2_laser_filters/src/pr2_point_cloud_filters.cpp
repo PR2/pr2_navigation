@@ -27,9 +27,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "sensor_msgs/PointCloud.h"
+#include "sensor_msgs/PointCloud2.h"
 #include "pr2_laser_filters/pr2_point_cloud_footprint_filter.h"
 #include "filters/filter_base.h"
 #include "pluginlib/class_list_macros.h"
 
-PLUGINLIB_DECLARE_CLASS(pr2_navigation_perception, PR2PointCloudFootprintFilterNew, pr2_laser_filters::PR2PointCloudFootprintFilterNew, filters::FilterBase<pcl::PointCloud<pcl::PointXYZ> >)
+PLUGINLIB_DECLARE_CLASS(pr2_navigation_perception, PR2PointCloudFootprintFilterNew, pr2_laser_filters::PR2PointCloudFootprintFilterNew, filters::FilterBase<sensor_msgs::PointCloud2>)

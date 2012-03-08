@@ -10,7 +10,7 @@ inside the inscribed radius.
   </library>
   <library path="lib/libpr2_point_cloud_filters">
     <class name="pr2_navigation_perception/PR2PointCloudFootprintFilterNew" type="pr2_laser_filters::PR2PointCloudFootprintFilterNew" 
-      base_class_type="filters::FilterBase<pcl::PointCloud<pcl::PointXYZ> >">
+      base_class_type="filters::FilterBase<sensor_msgs::PointCloud2>">
       <description>
 	Remove points from the pointcloud inside the robot base. 
       </description>
