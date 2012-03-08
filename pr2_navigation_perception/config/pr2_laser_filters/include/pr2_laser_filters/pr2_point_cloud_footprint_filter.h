@@ -44,13 +44,17 @@ This is useful for ground plane extraction
 #include "laser_geometry/laser_geometry.h"
 #include "filters/filter_base.h"
 #include "tf/transform_listener.h"
-#include "sensor_msgs/PointCloud.h"
 #include "ros/ros.h"
+#include <pcl_ros/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl_ros/transforms.h>
 
 namespace pr2_laser_filters
 {
 
-class PR2PointCloudFootprintFilterNew : public filters::FilterBase<sensor_msgs::PointCloud>
+typedef pcl::PointCloud<pcl::PointXYZ> PointCloud;
+
+class PR2PointCloudFootprintFilterNew : public filters::FilterBase<PointCloud>
 {
 public:
   PR2PointCloudFootprintFilterNew() {}
@@ -70,17 +74,17 @@ public:
 
   }
 
-  bool update(const sensor_msgs::PointCloud& input_scan, sensor_msgs::PointCloud& filtered_scan)
+  bool update(const PointCloud& input_scan, PointCloud& filtered_scan)
   {
     if(&input_scan == &filtered_scan){
       ROS_ERROR("This filter does not currently support in place copying");
       return false;
     }
-    sensor_msgs::PointCloud laser_cloud;
+    PointCloud laser_cloud;
 
     try{
       tf_.waitForTransform(input_scan.header.frame_id, "base_link", input_scan.header.stamp, ros::Duration(0.2));
-      tf_.transformPointCloud("base_link", input_scan, laser_cloud);
+      pcl_ros::transformPointCloud("base_link", input_scan, laser_cloud, tf_);
     }
     catch(tf::TransformException& ex){
       ROS_ERROR("Transform unavailable %s", ex.what());
@@ -89,33 +93,24 @@ public:
 
     filtered_scan.header = input_scan.header;
     filtered_scan.points.resize (input_scan.points.size());
-    filtered_scan.channels.resize (input_scan.channels.size());
-    for (unsigned int d = 0; d < input_scan.channels.size (); d++){
-      filtered_scan.channels[d].values.resize  (input_scan.points.size());
-      filtered_scan.channels[d].name = input_scan.channels[d].name;
-    }
 
     int num_pts = 0;
     for (unsigned int i=0; i < laser_cloud.points.size(); i++)  
     {
       if (!inFootprint(laser_cloud.points[i])){
         filtered_scan.points[num_pts] = input_scan.points[i];
-        for (unsigned int d = 0; d < filtered_scan.channels.size (); d++)
-          filtered_scan.channels[d].values[num_pts] = input_scan.channels[d].values[i];
         num_pts++;
       }
     }
 
     // Resize output vectors
     filtered_scan.points.resize (num_pts);
-    for (unsigned int d = 0; d < filtered_scan.channels.size (); d++)
-      filtered_scan.channels[d].values.resize (num_pts);
 
     return true;
   }
 
 
-  bool inFootprint(const geometry_msgs::Point32& scan_pt){
+  bool inFootprint(const pcl::PointXYZ& scan_pt){
     if(scan_pt.x < -1.0 * inscribed_radius_ || scan_pt.x > inscribed_radius_ || scan_pt.y < -1.0 * inscribed_radius_ || scan_pt.y > inscribed_radius_)
       return false;
     return true;
