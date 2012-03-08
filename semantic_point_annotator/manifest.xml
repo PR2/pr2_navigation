@@ -10,5 +10,7 @@
 
   <depend package="roscpp" />
   <depend package="tf" />
+  <depend package="pcl" />
+  <depend package="pcl_ros" />
   
 </package>

@@ -95,7 +95,7 @@ namespace sample_consensus
     inliers.resize (indices_.size ());
 
     // Obtain the line direction
-    geometry_msgs::Point32 p3, p4;
+    pcl::PointXYZ p3, p4;
     p3.x = model_coefficients.at (3) - model_coefficients.at (0);
     p3.y = model_coefficients.at (4) - model_coefficients.at (1);
     p3.z = model_coefficients.at (5) - model_coefficients.at (2);
@@ -117,7 +117,7 @@ namespace sample_consensus
       // P1P2 = sqrt (x3^2 + y3^2 + z3^2)
       // a = sqrt [(y3*z4 - z3*y4)^2 + (x3*z4 - x4*z3)^2 + (x3*y4 - x4*y3)^2]
       //double distance = SQR_NORM (cANN::cross (p4, p3)) / SQR_NORM (p3);
-      geometry_msgs::Point32 c = cross (p4, p3);
+      pcl::PointXYZ c = cross (p4, p3);
       double sqr_distance = (c.x * c.x + c.y * c.y + c.z * c.z) / (p3.x * p3.x + p3.y * p3.y + p3.z * p3.z);
 
       if (sqr_distance < sqr_threshold)
@@ -142,7 +142,7 @@ namespace sample_consensus
     distances.resize (indices_.size ());
 
     // Obtain the line direction
-    geometry_msgs::Point32 p3, p4;
+    pcl::PointXYZ p3, p4;
     p3.x = model_coefficients.at (3) - model_coefficients.at (0);
     p3.y = model_coefficients.at (4) - model_coefficients.at (1);
     p3.z = model_coefficients.at (5) - model_coefficients.at (2);
@@ -156,7 +156,7 @@ namespace sample_consensus
       p4.y = model_coefficients.at (4) - cloud_->points.at (indices_.at (i)).y;
       p4.z = model_coefficients.at (5) - cloud_->points.at (indices_.at (i)).z;
 
-      geometry_msgs::Point32 c = cross (p4, p3);
+      pcl::PointXYZ c = cross (p4, p3);
       distances[i] = sqrt (c.x * c.x + c.y * c.y + c.z * c.z) / (p3.x * p3.x + p3.y * p3.y + p3.z * p3.z);
     }
     return;
@@ -170,21 +170,13 @@ namespace sample_consensus
     */
   void
     SACModelLine::projectPoints (const std::vector<int> &inliers, const std::vector<double> &model_coefficients,
-                                 sensor_msgs::PointCloud &projected_points)
+                                 PointCloud &projected_points)
   {
     // Allocate enough space
     projected_points.points.resize (inliers.size ());
-    projected_points.channels.resize (cloud_->channels.size ());
-
-    // Create the channels
-    for (unsigned int d = 0; d < projected_points.channels.size (); d++)
-    {
-      projected_points.channels[d].name = cloud_->channels[d].name;
-      projected_points.channels[d].values.resize (inliers.size ());
-    }
 
     // Compute the line direction (P2 - P1)
-    geometry_msgs::Point32 p21;
+    pcl::PointXYZ p21;
     p21.x = model_coefficients.at (3) - model_coefficients.at (0);
     p21.y = model_coefficients.at (4) - model_coefficients.at (1);
     p21.z = model_coefficients.at (5) - model_coefficients.at (2);
@@ -201,8 +193,6 @@ namespace sample_consensus
       projected_points.points[i].y = model_coefficients_.at (1) + k * p21.y;
       projected_points.points[i].z = model_coefficients_.at (2) + k * p21.z;
       // Copy the other attributes
-      for (unsigned int d = 0; d < projected_points.channels.size (); d++)
-        projected_points.channels[d].values[i] = cloud_->channels[d].values[inliers.at (i)];
     }
   }
 
@@ -215,7 +205,7 @@ namespace sample_consensus
     SACModelLine::projectPointsInPlace (const std::vector<int> &inliers, const std::vector<double> &model_coefficients)
   {
     // Compute the line direction (P2 - P1)
-    geometry_msgs::Point32 p21;
+    pcl::PointXYZ p21;
     p21.x = model_coefficients.at (3) - model_coefficients.at (0);
     p21.y = model_coefficients.at (4) - model_coefficients.at (1);
     p21.z = model_coefficients.at (5) - model_coefficients.at (2);
@@ -273,7 +263,7 @@ namespace sample_consensus
     refit_coefficients.resize (6);
 
     // Compute the centroid of the samples
-    geometry_msgs::Point32 centroid;
+    pcl::PointXYZ centroid;
     // Compute the 3x3 covariance matrix
     Eigen::Matrix3d covariance_matrix;
     computeCovarianceMatrix (*cloud_, inliers, covariance_matrix, centroid);
@@ -304,7 +294,7 @@ namespace sample_consensus
     double sqr_threshold = threshold * threshold;
     for (std::set<int>::iterator it = indices.begin (); it != indices.end (); ++it)
     {
-      geometry_msgs::Point32 p3, p4;
+      pcl::PointXYZ p3, p4;
       p3.x = model_coefficients_.at (3) - model_coefficients_.at (0);
       p3.y = model_coefficients_.at (4) - model_coefficients_.at (1);
       p3.z = model_coefficients_.at (5) - model_coefficients_.at (2);
@@ -313,7 +303,7 @@ namespace sample_consensus
       p4.y = model_coefficients_.at (4) - cloud_->points.at (*it).y;
       p4.z = model_coefficients_.at (5) - cloud_->points.at (*it).z;
 
-      geometry_msgs::Point32 c = cross (p4, p3);
+      pcl::PointXYZ c = cross (p4, p3);
       double sqr_distance = (c.x * c.x + c.y * c.y + c.z * c.z) / (p3.x * p3.x + p3.y * p3.y + p3.z * p3.z);
 
       if (sqr_distance < sqr_threshold)

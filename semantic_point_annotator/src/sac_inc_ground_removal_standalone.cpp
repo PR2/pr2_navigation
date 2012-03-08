@@ -42,7 +42,6 @@
 // ROS core
 #include <ros/ros.h>
 // ROS messages
-#include <sensor_msgs/PointCloud.h>
 #include <Eigen/QR>
 #include <Eigen/Eigenvalues>
 // Sample Consensus
@@ -58,6 +57,8 @@
 
 #include <boost/thread.hpp>
 
+#include <pcl_ros/transforms.h>
+
 using namespace std;
 
 class IncGroundRemoval
@@ -68,12 +69,12 @@ class IncGroundRemoval
   public:
 
     // ROS messages
-    sensor_msgs::PointCloud laser_cloud_, cloud_, cloud_noground_;
+    sample_consensus::PointCloud laser_cloud_, cloud_, cloud_noground_;
 
     tf::TransformListener tf_;
     geometry_msgs::PointStamped viewpoint_cloud_;
-    tf::MessageFilter<sensor_msgs::PointCloud>* cloud_notifier_;
-    message_filters::Subscriber<sensor_msgs::PointCloud>* cloud_subscriber_;
+    tf::MessageFilter<sample_consensus::PointCloud>* cloud_notifier_;
+    message_filters::Subscriber<sample_consensus::PointCloud>* cloud_subscriber_;
   
     // Parameters
     double z_threshold_, ground_slope_threshold_;
@@ -118,14 +119,14 @@ class IncGroundRemoval
       ros::NodeHandle public_node;
 
       //subscribe (cloud_topic.c_str (), laser_cloud_, &IncGroundRemoval::cloud_cb, 1);
-      cloud_subscriber_ = new message_filters::Subscriber<sensor_msgs::PointCloud>(public_node,cloud_topic,50);
-      cloud_notifier_ = new tf::MessageFilter<sensor_msgs::PointCloud>(*cloud_subscriber_,tf_,"odom_combined",50);
+      cloud_subscriber_ = new message_filters::Subscriber<sample_consensus::PointCloud>(public_node,cloud_topic,50);
+      cloud_notifier_ = new tf::MessageFilter<sample_consensus::PointCloud>(*cloud_subscriber_,tf_,"odom_combined",50);
       cloud_notifier_->registerCallback(boost::bind(&IncGroundRemoval::cloud_cb,this,_1));
 
-//      cloud_notifier_ = new tf::MessageNotifier<sensor_msgs::PointCloud> (&tf_, node_,
+//      cloud_notifier_ = new tf::MessageNotifier<sample_consensus::PointCloud> (&tf_, node_,
 //                        boost::bind (&IncGroundRemoval::cloud_cb, this, _1), cloud_topic, "odom_combined", 50);
 
-      cloud_publisher_ = public_node.advertise<sensor_msgs::PointCloud> ("cloud_ground_filtered", 1);
+      cloud_publisher_ = public_node.advertise<sample_consensus::PointCloud> ("cloud_ground_filtered", 1);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,58 +143,13 @@ class IncGroundRemoval
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** \brief Decompose a PointCloud message into LaserScan clusters
-      * \param points pointer to the point cloud message
-      * \param indices pointer to a list of point indices
-      * \param clusters the resultant clusters
-      * \param idx the index of the channel containing the laser scan index
-      */
-    void
-      splitPointsBasedOnLaserScanIndex (sensor_msgs::PointCloud *points, vector<int> *indices, vector<vector<int> > &clusters, int idx)
-    {
-      vector<int> seed_queue;
-      int prev_idx = -1;
-      // Process all points in the indices vector
-      for (unsigned int i = 0; i < indices->size (); i++)
-      {
-        // Get the current laser scan measurement index
-        int cur_idx = points->channels[idx].values.at (indices->at (i));
-
-        if (cur_idx > prev_idx)   // Still the same laser scan ?
-        {
-          seed_queue.push_back (indices->at (i));
-          prev_idx = cur_idx;
-        }
-        else                      // Have we found a new scan ?
-        {
-          prev_idx = -1;
-          vector<int> r;
-          r.resize (seed_queue.size ());
-          for (unsigned int j = 0; j < r.size (); j++)
-            r[j] = seed_queue[j];
-          clusters.push_back (r);
-          seed_queue.resize (0);
-        }
-      }
-      // Copy the last laser scan as well
-      if (seed_queue.size () > 0)
-      {
-        vector<int> r;
-        r.resize (seed_queue.size ());
-        for (unsigned int j = 0; j < r.size (); j++)
-          r[j] = seed_queue[j];
-        clusters.push_back (r);
-      }
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** \brief Find a line model in a point cloud given via a set of point indices with SAmple Consensus methods
       * \param points the point cloud message
       * \param indices a pointer to a set of point cloud indices to test
       * \param inliers the resultant inliers
       */
     bool
-      fitSACLine (sensor_msgs::PointCloud *points, vector<int> *indices, vector<int> &inliers)
+      fitSACLine (sample_consensus::PointCloud *points, vector<int> *indices, vector<int> &inliers)
     {
       if ((int)indices->size () < sac_min_points_per_model_)
         return (false);
@@ -237,7 +193,7 @@ class IncGroundRemoval
       * \param viewpoint the viewpoint
       */
     inline void
-      flipNormalTowardsViewpoint (Eigen::Vector4d &normal, const geometry_msgs::Point32 &point, const geometry_msgs::PointStamped &viewpoint)
+      flipNormalTowardsViewpoint (Eigen::Vector4d &normal, const pcl::PointXYZ &point, const geometry_msgs::PointStamped &viewpoint)
     {
       // See if we need to flip any plane normals
       float vp_m[3];
@@ -265,7 +221,7 @@ class IncGroundRemoval
       * \param centroid the output centroid
       */
     inline void
-      computeCentroid (const sensor_msgs::PointCloud &points, const std::vector<int> &indices, geometry_msgs::Point32 &centroid)
+      computeCentroid (const sample_consensus::PointCloud &points, const std::vector<int> &indices, pcl::PointXYZ &centroid)
     {
       centroid.x = centroid.y = centroid.z = 0;
       // For each point in the cloud
@@ -291,7 +247,7 @@ class IncGroundRemoval
       * \param centroid the computed centroid
       */
     inline void
-      computeCovarianceMatrix (const sensor_msgs::PointCloud &points, const std::vector<int> &indices, Eigen::Matrix3d &covariance_matrix, geometry_msgs::Point32 &centroid)
+      computeCovarianceMatrix (const sample_consensus::PointCloud &points, const std::vector<int> &indices, Eigen::Matrix3d &covariance_matrix, pcl::PointXYZ &centroid)
     {
       computeCentroid (points, indices, centroid);
 
@@ -326,9 +282,9 @@ class IncGroundRemoval
       * \f]
       */
     void
-      computePointNormal (const sensor_msgs::PointCloud &points, const std::vector<int> &indices, Eigen::Vector4d &plane_parameters, double &curvature)
+      computePointNormal (const sample_consensus::PointCloud &points, const std::vector<int> &indices, Eigen::Vector4d &plane_parameters, double &curvature)
     {
-      geometry_msgs::Point32 centroid;
+      pcl::PointXYZ centroid;
       // Compute the 3x3 covariance matrix
       Eigen::Matrix3d covariance_matrix;
       computeCovarianceMatrix (points, indices, covariance_matrix, centroid);
@@ -355,43 +311,8 @@ class IncGroundRemoval
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** \brief Get the index of a specified dimension/channel in a point cloud
-      * \param points the point cloud
-      * \param channel_name the string defining the channel name
-      */
-    int
-      getChannelIndex (const sensor_msgs::PointCloud &points, std::string channel_name)
-    {
-      for (unsigned int d = 0; d < points.channels.size (); d++)
-        if (points.channels[d].name == channel_name)
-          return (d);
-      return (-1);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////
-    /** \brief Get the available dimensions as a space separated string
-      * \param cloud the point cloud data message
-      */
-    std::string
-      getAvailableChannels (const sensor_msgs::PointCloud &cloud)
-    {
-      std::string result;
-      if (cloud.channels.size () == 0)
-        return (result);
-      unsigned int i;
-      for (i = 0; i < cloud.channels.size () - 1; i++)
-      {
-        std::string index = cloud.channels[i].name + " ";
-        result += index;
-      }
-      std::string index = cloud.channels[i].name;
-      result += index;
-      return (result);
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Callback
-    void cloud_cb (const sensor_msgs::PointCloudConstPtr& msg)
+    void cloud_cb (const sample_consensus::PointCloud::ConstPtr& msg)
     {
       laser_cloud_ = *msg;
       //check to see if the point cloud is empty
@@ -402,20 +323,14 @@ class IncGroundRemoval
       }
 
       try{
-        tf_.transformPointCloud("odom_combined", laser_cloud_, cloud_);
+        pcl_ros::transformPointCloud("odom_combined", laser_cloud_, cloud_, tf_);
       }
       catch(tf::TransformException &ex){
         ROS_ERROR("Can't transform cloud for ground plane detection");
         return;
       }
 
-      ROS_DEBUG ("Received %d data points with %d channels (%s).", (int)cloud_.points.size (), (int)cloud_.channels.size (), getAvailableChannels (cloud_).c_str ());
-      int idx_idx = getChannelIndex (cloud_, "index");
-      if (idx_idx == -1)
-      {
-        ROS_ERROR ("Channel 'index' missing in input PointCloud message!");
-        return;
-      }
+      ROS_DEBUG ("Received %d data points.", (int)cloud_.points.size ());
       if (cloud_.points.size () == 0)
         return;
 
@@ -497,31 +412,6 @@ class IncGroundRemoval
       }
       ROS_DEBUG ("Total number of ground inliers after refinement: %d.", (int)ground_inliers.size ());
 
-#if DEBUG
-      // Prepare new arrays
-      cloud_noground_.points.resize (possible_ground_indices.size ());
-      cloud_noground_.channels.resize (1);
-      cloud_noground_.channels[0].name = "rgb";
-      cloud_noground_.channels[0].values.resize (possible_ground_indices.size ());
-
-      cloud_noground_.points.resize (ground_inliers.size ());
-      cloud_noground_.channels[0].values.resize (ground_inliers.size ());
-      float r = rand () / (RAND_MAX + 1.0);
-      float g = rand () / (RAND_MAX + 1.0);
-      float b = rand () / (RAND_MAX + 1.0);
-
-      for (unsigned int i = 0; i < ground_inliers.size (); i++)
-      {
-        cloud_noground_.points[i].x = cloud_.points.at (ground_inliers[i]).x;
-        cloud_noground_.points[i].y = cloud_.points.at (ground_inliers[i]).y;
-        cloud_noground_.points[i].z = cloud_.points.at (ground_inliers[i]).z;
-        cloud_noground_.channels[0].values[i] = getRGB (r, g, b);
-      }
-      cloud_publisher_.publish (cloud_noground_);
-
-      return;
-#endif
-
       // Get all the non-ground point indices
       vector<int> remaining_indices;
       sort (ground_inliers.begin (), ground_inliers.end ());
@@ -532,20 +422,12 @@ class IncGroundRemoval
       // Prepare new arrays
       int nr_remaining_pts = remaining_indices.size ();
       cloud_noground_.points.resize (nr_remaining_pts);
-      cloud_noground_.channels.resize (cloud_.channels.size ());
-      for (unsigned int d = 0; d < cloud_.channels.size (); d++)
-      {
-        cloud_noground_.channels[d].name = cloud_.channels[d].name;
-        cloud_noground_.channels[d].values.resize (nr_remaining_pts);
-      }
 
       for (unsigned int i = 0; i < remaining_indices.size (); i++)
       {
         cloud_noground_.points[i].x = cloud_.points.at (remaining_indices[i]).x;
         cloud_noground_.points[i].y = cloud_.points.at (remaining_indices[i]).y;
         cloud_noground_.points[i].z = cloud_.points.at (remaining_indices[i]).z;
-        for (unsigned int d = 0; d < cloud_.channels.size (); d++)
-          cloud_noground_.channels[d].values[i] = cloud_.channels[d].values.at (remaining_indices[i]);
       }
 
       gettimeofday (&t2, NULL);
@@ -562,13 +444,13 @@ class IncGroundRemoval
       * \param plane_coefficients the normalized coefficients (a, b, c, d) of a plane
       */
     inline double
-      pointToPlaneDistanceSigned (const geometry_msgs::Point32 &p, const Eigen::Vector4d &plane_coefficients)
+      pointToPlaneDistanceSigned (const pcl::PointXYZ &p, const Eigen::Vector4d &plane_coefficients)
     {
       return ( plane_coefficients (0) * p.x + plane_coefficients (1) * p.y + plane_coefficients (2) * p.z + plane_coefficients (3) );
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** \brief Get the view point from where the scans were taken in the incoming PointCloud message frame
+    /** \brief Get the view point from where the scans were taken in the incoming sample_consensus::PointCloud message frame
       * \param cloud_frame the point cloud message TF frame
       * \param viewpoint_cloud the resultant view point in the incoming cloud frame
       * \param tf a pointer to a TransformListener object
@@ -609,7 +491,7 @@ class IncGroundRemoval
       */
     inline void
       transformPoint (tf::TransformListener *tf, const std::string &target_frame,
-                      const tf::Stamped< geometry_msgs::Point32 > &stamped_in, tf::Stamped< geometry_msgs::Point32 > &stamped_out)
+                      const tf::Stamped< pcl::PointXYZ > &stamped_in, tf::Stamped< pcl::PointXYZ > &stamped_out)
     {
       tf::Stamped<tf::Point> tmp;
       tmp.stamp_ = stamped_in.stamp_;
@@ -644,10 +526,10 @@ class IncGroundRemoval
     inline double
       transformDoubleValueTF (double val, std::string src_frame, std::string tgt_frame, ros::Time stamp, tf::TransformListener *tf)
     {
-      geometry_msgs::Point32 temp;
+      pcl::PointXYZ temp;
       temp.x = temp.y = 0;
       temp.z = val;
-      tf::Stamped<geometry_msgs::Point32> temp_stamped (temp, stamp, src_frame);
+      tf::Stamped<pcl::PointXYZ> temp_stamped (temp, stamp, src_frame);
       transformPoint (tf, tgt_frame, temp_stamped, temp_stamped);
       return (temp_stamped.z);
     }
@@ -662,7 +544,7 @@ int
 
   ros::NodeHandle ros_node ("~");
 
-  // For efficiency considerations please make sure the input PointCloud is in a frame with Z point upwards
+  // For efficiency considerations please make sure the input sample_consensus::PointCloud is in a frame with Z point upwards
   IncGroundRemoval p (ros_node);
   ros::spin ();
 

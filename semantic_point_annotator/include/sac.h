@@ -33,8 +33,8 @@
 #ifndef _SAMPLE_CONSENSUS_SAC_H_
 #define _SAMPLE_CONSENSUS_SAC_H_
 
-#include <geometry_msgs/Point32.h>     // ROS float point type
-#include <sensor_msgs/PointCloud.h>  // ROS point cloud type
+#include <pcl_ros/point_cloud.h>
+#include <pcl/point_types.h>
 
 #include <stdlib.h>
 #include <sac_model.h>
@@ -134,7 +134,7 @@ namespace sample_consensus
       /** \brief Return the point cloud representing a set of given indices.
         * \param indices a set of indices that represent the data that we're interested in
         */
-      sensor_msgs::PointCloud getPointCloud (std::vector<int> indices);
+      PointCloud getPointCloud (std::vector<int> indices);
 
       //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       /** \brief Project a set of given points (using their indices) onto the model and return their projections.
@@ -144,7 +144,7 @@ namespace sample_consensus
         */
       virtual void
         projectPointsToModel (const std::vector<int> &indices, const std::vector<double> &model_coefficients,
-                              sensor_msgs::PointCloud &projected_points)
+                              PointCloud &projected_points)
       {
         sac_model_->projectPoints (indices, model_coefficients, projected_points);
       }
@@ -158,7 +158,7 @@ namespace sample_consensus
         * \param nr_samples the desired number of point indices
         */
       std::set<int>
-        getRandomSamples (sensor_msgs::PointCloud points, int nr_samples)
+        getRandomSamples (PointCloud points, int nr_samples)
       {
         std::set<int> random_idx;
         for (int i = 0; i < nr_samples; i++)
@@ -175,7 +175,7 @@ namespace sample_consensus
         * \param nr_samples the desired number of point indices
         */
       std::set<int>
-        getRandomSamples (sensor_msgs::PointCloud points, std::vector<int> indices, int nr_samples)
+        getRandomSamples (PointCloud points, std::vector<int> indices, int nr_samples)
       {
         std::set<int> random_idx;
         for (int i = 0; i < nr_samples; i++)

@@ -69,7 +69,7 @@ namespace sample_consensus
       virtual void getDistancesToModel (const std::vector<double> &model_coefficients, std::vector<double> &distances);
       virtual void selectWithinDistance (const std::vector<double> &model_coefficients, double threshold, std::vector<int> &inliers);
 
-      virtual void projectPoints (const std::vector<int> &inliers, const std::vector<double> &model_coefficients, sensor_msgs::PointCloud &projected_points);
+      virtual void projectPoints (const std::vector<int> &inliers, const std::vector<double> &model_coefficients, PointCloud &projected_points);
 
       virtual void projectPointsInPlace (const std::vector<int> &inliers, const std::vector<double> &model_coefficients);
       virtual bool doSamplesVerifyModel (const std::set<int> &indices, double threshold);
@@ -83,10 +83,10 @@ namespace sample_consensus
         * \param p1 the first point/vector
         * \param p2 the second point/vector
         */
-      inline geometry_msgs::Point32
-        cross (const geometry_msgs::Point32 &p1, const geometry_msgs::Point32 &p2)
+      inline pcl::PointXYZ
+        cross (const pcl::PointXYZ &p1, const pcl::PointXYZ &p2)
       {
-        geometry_msgs::Point32 r;
+        pcl::PointXYZ r;
         r.x = p1.y * p2.z - p1.z * p2.y;
         r.y = p1.z * p2.x - p1.x * p2.z;
         r.z = p1.x * p2.y - p1.y * p2.x;
@@ -100,7 +100,7 @@ namespace sample_consensus
         * \param centroid the output centroid
         */
       inline void
-        computeCentroid (const sensor_msgs::PointCloud &points, const std::vector<int> &indices, geometry_msgs::Point32 &centroid)
+        computeCentroid (const PointCloud &points, const std::vector<int> &indices, pcl::PointXYZ &centroid)
       {
         centroid.x = centroid.y = centroid.z = 0;
         // For each point in the cloud
@@ -126,7 +126,7 @@ namespace sample_consensus
         * \param centroid the computed centroid
         */
       inline void
-        computeCovarianceMatrix (const sensor_msgs::PointCloud &points, const std::vector<int> &indices, Eigen::Matrix3d &covariance_matrix, geometry_msgs::Point32 &centroid)
+        computeCovarianceMatrix (const PointCloud &points, const std::vector<int> &indices, Eigen::Matrix3d &covariance_matrix, pcl::PointXYZ &centroid)
       {
         computeCentroid (points, indices, centroid);
 
