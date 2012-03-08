@@ -98,22 +98,18 @@ public:
 
     void run(void)
     {
-	sensor_msgs::PointCloud in;
+      robot_self_filter::PointCloud in;
 	
 	in.header.stamp = ros::Time::now();
 	in.header.frame_id = "base_link";
-	in.channels.resize(1);
-	in.channels[0].name = "stamps";
 	
 	const unsigned int N = 500000;	
 	in.points.resize(N);
-	in.channels[0].values.resize(N);
 	for (unsigned int i = 0 ; i < N ; ++i)
 	{
 	    in.points[i].x = uniform(1.5);
 	    in.points[i].y = uniform(1.5);
 	    in.points[i].z = uniform(1.5);
-	    in.channels[0].values[i] = (double)i/(double)N;
 	}
 	
 	for (unsigned int i = 0 ; i < 1000 ; ++i)

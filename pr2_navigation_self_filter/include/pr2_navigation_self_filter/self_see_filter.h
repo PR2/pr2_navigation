@@ -102,9 +102,6 @@ public:
       }
     }
     sm_ = new robot_self_filter::SelfMask(tf_, links);
-    nh_.param<std::string>("annotate", annotate_, std::string());
-    if (!annotate_.empty())
-      ROS_INFO("Self filter is adding annotation channel '%s'", annotate_.c_str());
     if (!sensor_frame_.empty())
       ROS_INFO("Self filter is removing shadow points for sensor in frame '%s'. Minimum distance to sensor is %f.", sensor_frame_.c_str(), min_sensor_dist_);
   }
@@ -128,7 +125,7 @@ public:
     return true;
   }
 
-  bool updateWithSensorFrame(const sensor_msgs::PointCloud& data_in, sensor_msgs::PointCloud& data_out, const std::string& sensor_frame)
+  bool updateWithSensorFrame(const robot_self_filter::PointCloud& data_in, robot_self_filter::PointCloud& data_out, const std::string& sensor_frame)
   {
     sensor_frame_ = sensor_frame;
     return update(data_in, data_out);
@@ -138,7 +135,7 @@ public:
    * \param data_in T array with length width
    * \param data_out T array with length width
    */
-  virtual bool update(const sensor_msgs::PointCloud& data_in, sensor_msgs::PointCloud& data_out)
+  virtual bool update(const robot_self_filter::PointCloud& data_in, robot_self_filter::PointCloud& data_out)
   {
     std::vector<int> keep(data_in.points.size());
     if(sensor_frame_.empty()) {
@@ -150,7 +147,7 @@ public:
     return true;
   }
 
-  bool updateWithSensorFrame(const sensor_msgs::PointCloud& data_in, sensor_msgs::PointCloud& data_out, sensor_msgs::PointCloud& data_diff, const std::string& sensor_frame)
+  bool updateWithSensorFrame(const robot_self_filter::PointCloud& data_in, robot_self_filter::PointCloud& data_out, robot_self_filter::PointCloud& data_diff, const std::string& sensor_frame)
   {
     sensor_frame_ = sensor_frame;
     return update(data_in, data_out, data_diff);
@@ -160,7 +157,7 @@ public:
    * \param data_in T array with length width
    * \param data_out T array with length width
    */
-  virtual bool update(const sensor_msgs::PointCloud& data_in, sensor_msgs::PointCloud& data_out, sensor_msgs::PointCloud& data_diff)
+  virtual bool update(const robot_self_filter::PointCloud& data_in, robot_self_filter::PointCloud& data_out, robot_self_filter::PointCloud& data_diff)
   {
     std::vector<int> keep(data_in.points.size());
     if(sensor_frame_.empty()) {
@@ -173,7 +170,7 @@ public:
     return true;
   }
 
-  void fillDiff(const sensor_msgs::PointCloud& data_in, const std::vector<int> &keep, sensor_msgs::PointCloud& data_out)
+  void fillDiff(const robot_self_filter::PointCloud& data_in, const std::vector<int> &keep, robot_self_filter::PointCloud& data_out)
   {
     const unsigned int np = data_in.points.size();
 	
@@ -183,26 +180,16 @@ public:
     data_out.points.resize(0);
     data_out.points.reserve(np);
 	
-    data_out.channels.resize(data_in.channels.size());
-    for (unsigned int i = 0 ; i < data_out.channels.size() ; ++i)
-    {
-      ROS_ASSERT(data_in.channels[i].values.size() == data_in.points.size());
-      data_out.channels[i].name = data_in.channels[i].name;
-      data_out.channels[i].values.reserve(data_in.channels[i].values.size());
-    }
-	
     for (unsigned int i = 0 ; i < np ; ++i)
     {
       if ((keep[i] && invert_) || (!keep[i] && !invert_))
       {
         data_out.points.push_back(data_in.points[i]);
-        for (unsigned int j = 0 ; j < data_out.channels.size() ; ++j)
-          data_out.channels[j].values.push_back(data_in.channels[j].values[i]);
       }
     }
   }
 
-  void fillResult(const sensor_msgs::PointCloud& data_in, const std::vector<int> &keep, sensor_msgs::PointCloud& data_out)
+  void fillResult(const robot_self_filter::PointCloud& data_in, const std::vector<int> &keep, robot_self_filter::PointCloud& data_out)
   {
     const unsigned int np = data_in.points.size();
 
@@ -212,68 +199,19 @@ public:
     data_out.points.resize(0);
     data_out.points.reserve(np);
 	
-    data_out.channels.resize(data_in.channels.size());
-    for (unsigned int i = 0 ; i < data_out.channels.size() ; ++i)
-    {
-      ROS_ASSERT(data_in.channels[i].values.size() == data_in.points.size());
-      data_out.channels[i].name = data_in.channels[i].name;
-      data_out.channels[i].values.reserve(data_in.channels[i].values.size());
-    }
-	
-    int c = -1;
-    if (!annotate_.empty())
-    {
-      // add annotation for points
-      for (unsigned int i = 0 ; i < data_out.channels.size() ; ++i)
-        if (data_out.channels[i].name == annotate_)
-        {
-          c = i;
-          break;
-        }
-      if (c < 0)
-      {
-        c = data_out.channels.size();
-        data_out.channels.resize(c + 1);
-        data_out.channels[c].name = annotate_;
-      }
-      data_out.channels[c].values.reserve(np);
-    }
-
     for (unsigned int i = 0 ; i < np ; ++i)
-      if (annotate_.empty())
-      {
-        if (keep[i] == robot_self_filter::OUTSIDE)
-        {
-          data_out.points.push_back(data_in.points[i]);
-          for (unsigned int j = 0 ; j < data_out.channels.size() ; ++j)
-            data_out.channels[j].values.push_back(data_in.channels[j].values[i]);
-        }
-      }
-      else
-      {
-        data_out.points.push_back(data_in.points[i]);
-        for (unsigned int j = 0 ; j < data_out.channels.size() ; ++j)
-        {
-          if ((int)j == c)
-          {
-            float flag = 0.0;
-            if (keep[i] != robot_self_filter::SHADOW)
-              flag = keep[i] == robot_self_filter::OUTSIDE ? 1.0f : -1.0f;			
-            data_out.channels[c].values.push_back(flag);
-          }
-          else
-            data_out.channels[j].values.push_back(data_in.channels[j].values[i]);
-        }
-      }
+    {
+      data_out.points.push_back(data_in.points[i]);
+    }
   }
 
-  virtual bool updateWithSensorFrame(const std::vector<sensor_msgs::PointCloud> & data_in, std::vector<sensor_msgs::PointCloud>& data_out, const std::string& sensor_frame)
+  virtual bool updateWithSensorFrame(const std::vector<robot_self_filter::PointCloud> & data_in, std::vector<robot_self_filter::PointCloud>& data_out, const std::string& sensor_frame)
   {
     sensor_frame_ = sensor_frame;
     return update(data_in, data_out);
   }
   
-  virtual bool update(const std::vector<sensor_msgs::PointCloud> & data_in, std::vector<sensor_msgs::PointCloud>& data_out)
+  virtual bool update(const std::vector<robot_self_filter::PointCloud> & data_in, std::vector<robot_self_filter::PointCloud>& data_out)
   {
     bool result = true;
     data_out.resize(data_in.size());
@@ -299,7 +237,6 @@ protected:
   ros::NodeHandle nh_;
   bool invert_;
   std::string sensor_frame_;
-  std::string annotate_;
   double min_sensor_dist_;
     
   

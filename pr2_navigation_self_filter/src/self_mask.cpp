@@ -224,7 +224,7 @@ void robot_self_filter::SelfMask::getLinkNames(std::vector<std::string> &frames)
 	frames.push_back(bodies_[i].name);
 }
 
-void robot_self_filter::SelfMask::maskContainment(const sensor_msgs::PointCloud& data_in, std::vector<int> &mask)
+void robot_self_filter::SelfMask::maskContainment(const PointCloud& data_in, std::vector<int> &mask)
 {
     mask.resize(data_in.points.size());
     if (bodies_.empty())
@@ -236,7 +236,7 @@ void robot_self_filter::SelfMask::maskContainment(const sensor_msgs::PointCloud&
     }
 }
 
-void robot_self_filter::SelfMask::maskIntersection(const sensor_msgs::PointCloud& data_in, const std::string &sensor_frame, const double min_sensor_dist,
+void robot_self_filter::SelfMask::maskIntersection(const PointCloud& data_in, const std::string &sensor_frame, const double min_sensor_dist,
 						   std::vector<int> &mask, const boost::function<void(const tf::Vector3&)> &callback)
 {
     mask.resize(data_in.points.size());
@@ -253,7 +253,7 @@ void robot_self_filter::SelfMask::maskIntersection(const sensor_msgs::PointCloud
     }
 }
 
-void robot_self_filter::SelfMask::maskIntersection(const sensor_msgs::PointCloud& data_in, const tf::Vector3 &sensor_pos, const double min_sensor_dist,
+void robot_self_filter::SelfMask::maskIntersection(const PointCloud& data_in, const tf::Vector3 &sensor_pos, const double min_sensor_dist,
 						   std::vector<int> &mask, const boost::function<void(const tf::Vector3&)> &callback)
 {
     mask.resize(data_in.points.size());
@@ -344,7 +344,7 @@ void robot_self_filter::SelfMask::assumeFrame(const std_msgs::Header& header)
     computeBoundingSpheres();
 }
 
-void robot_self_filter::SelfMask::maskAuxContainment(const sensor_msgs::PointCloud& data_in, std::vector<int> &mask)
+void robot_self_filter::SelfMask::maskAuxContainment(const PointCloud& data_in, std::vector<int> &mask)
 {
     const unsigned int bs = bodies_.size();
     const unsigned int np = data_in.points.size();
@@ -369,7 +369,7 @@ void robot_self_filter::SelfMask::maskAuxContainment(const sensor_msgs::PointClo
     }
 }
 
-void robot_self_filter::SelfMask::maskAuxIntersection(const sensor_msgs::PointCloud& data_in, std::vector<int> &mask, const boost::function<void(const tf::Vector3&)> &callback)
+void robot_self_filter::SelfMask::maskAuxIntersection(const PointCloud& data_in, std::vector<int> &mask, const boost::function<void(const tf::Vector3&)> &callback)
 {
     const unsigned int bs = bodies_.size();
     const unsigned int np = data_in.points.size();

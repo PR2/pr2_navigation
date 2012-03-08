@@ -48,19 +48,19 @@ public:
   SelfFilter(void): nh_("~")
   {
     nh_.param<std::string>("sensor_frame", sensor_frame_, std::string());
-    self_filter_ = new filters::SelfFilter<sensor_msgs::PointCloud>(nh_);
+    self_filter_ = new filters::SelfFilter<robot_self_filter::PointCloud>(nh_);
 
-    sub_ = new message_filters::Subscriber<sensor_msgs::PointCloud>(root_handle_, "cloud_in", 1);	
-    mn_ = new tf::MessageFilter<sensor_msgs::PointCloud>(*sub_, tf_, "", 1);
+    sub_ = new message_filters::Subscriber<robot_self_filter::PointCloud>(root_handle_, "cloud_in", 1);	
+    mn_ = new tf::MessageFilter<robot_self_filter::PointCloud>(*sub_, tf_, "", 1);
 
-    //mn_ = new tf::MessageNotifier<sensor_msgs::PointCloud>(tf_, boost::bind(&SelfFilter::cloudCallback, this, _1), "cloud_in", "", 1);
-    pointCloudPublisher_ = root_handle_.advertise<sensor_msgs::PointCloud>("cloud_out", 1);
+    //mn_ = new tf::MessageNotifier<robot_self_filter::PointCloud>(tf_, boost::bind(&SelfFilter::cloudCallback, this, _1), "cloud_in", "", 1);
+    pointCloudPublisher_ = root_handle_.advertise<robot_self_filter::PointCloud>("cloud_out", 1);
     std::vector<std::string> frames;
     self_filter_->getSelfMask()->getLinkNames(frames);
     if(frames.empty())
     {
       ROS_DEBUG("No valid frames have been passed into the self filter. Using a callback that will just forward scans on.");
-      no_filter_sub_ = root_handle_.subscribe<sensor_msgs::PointCloud>("cloud_in", 1, boost::bind(&SelfFilter::noFilterCallback, this, _1));
+      no_filter_sub_ = root_handle_.subscribe<robot_self_filter::PointCloud>("cloud_in", 1, boost::bind(&SelfFilter::noFilterCallback, this, _1));
     }
     else
     {
@@ -79,14 +79,14 @@ public:
     
 private:
 
-  void noFilterCallback(const sensor_msgs::PointCloudConstPtr &cloud){
+  void noFilterCallback(const robot_self_filter::PointCloud::ConstPtr &cloud){
     pointCloudPublisher_.publish(cloud);
     ROS_DEBUG("Self filter publishing unfiltered frame");
   }
     
-  void cloudCallback(const sensor_msgs::PointCloudConstPtr &cloud)
+  void cloudCallback(const robot_self_filter::PointCloud::ConstPtr &cloud)
   {
-    sensor_msgs::PointCloud out;
+    robot_self_filter::PointCloud out;
       
     ROS_DEBUG("Got pointcloud that is %f seconds old", (ros::Time::now() - cloud->header.stamp).toSec());
     std::vector<int> mask;
@@ -101,13 +101,13 @@ private:
   }
 
   tf::TransformListener                                 tf_;
-  //tf::MessageNotifier<sensor_msgs::PointCloud>           *mn_;
+  //tf::MessageNotifier<robot_self_filter::PointCloud>           *mn_;
   ros::NodeHandle                                       nh_, root_handle_;
 
-  tf::MessageFilter<sensor_msgs::PointCloud>           *mn_;
-  message_filters::Subscriber<sensor_msgs::PointCloud> *sub_;
+  tf::MessageFilter<robot_self_filter::PointCloud>           *mn_;
+  message_filters::Subscriber<robot_self_filter::PointCloud> *sub_;
 
-  filters::SelfFilter<sensor_msgs::PointCloud> *self_filter_;
+  filters::SelfFilter<robot_self_filter::PointCloud> *self_filter_;
   std::string sensor_frame_;
 
   ros::Publisher                                        pointCloudPublisher_;

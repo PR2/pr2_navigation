@@ -16,6 +16,8 @@
   <depend package="bullet"/>
   <depend package="resource_retriever"/>
   <depend package="visualization_msgs"/>
+  <depend package="pcl"/>
+  <depend package="pcl_ros"/>
 
 </package>
 
