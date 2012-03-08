@@ -22,6 +22,8 @@
   <depend package="message_filters"/>
   <depend package="laser_geometry"/>
   <depend package="laser_tilt_controller_filter"/>
+  <depend package="pcl" />
+  <depend package="pcl_ros" />
 
   <export>
     <filters plugin="${prefix}/config/pr2_laser_filters/pr2_laser_filters_plugins.xml" />
