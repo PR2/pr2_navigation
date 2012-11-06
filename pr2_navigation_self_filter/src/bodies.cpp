@@ -773,8 +773,9 @@ void bodies::ConvexMesh::useDimensions(const shapes::Shape *shape)
 	
 	for (int j = 0 ; j < hr.m_OutputVertices.size() ; ++j)
 	{
-	    m_vertices.push_back(hr.m_OutputVertices[j]);
-	    sum = sum + hr.m_OutputVertices[j];
+            tf::Vector3 vector3_tmp(tf::Vector3(hr.m_OutputVertices[j][0],hr.m_OutputVertices[j][1],hr.m_OutputVertices[j][2]));
+	    m_vertices.push_back(vector3_tmp);
+	    sum = sum + vector3_tmp;
 	}
 	
 	m_meshCenter = sum / (double)(hr.m_OutputVertices.size());
@@ -789,9 +790,9 @@ void bodies::ConvexMesh::useDimensions(const shapes::Shape *shape)
 	m_triangles.reserve(hr.m_Indices.size());
 	for (unsigned int j = 0 ; j < hr.mNumFaces ; ++j)
 	{
-	    const tf::Vector3 &p1 = hr.m_OutputVertices[hr.m_Indices[j * 3    ]];
-	    const tf::Vector3 &p2 = hr.m_OutputVertices[hr.m_Indices[j * 3 + 1]];
-	    const tf::Vector3 &p3 = hr.m_OutputVertices[hr.m_Indices[j * 3 + 2]];
+	    const tf::Vector3 p1(hr.m_OutputVertices[hr.m_Indices[j * 3    ]][0],hr.m_OutputVertices[hr.m_Indices[j * 3    ]][1],hr.m_OutputVertices[hr.m_Indices[j * 3    ]][2]);
+	    const tf::Vector3 p2(hr.m_OutputVertices[hr.m_Indices[j * 3 + 1]][0],hr.m_OutputVertices[hr.m_Indices[j * 3 + 1]][1],hr.m_OutputVertices[hr.m_Indices[j * 3 + 1]][2]);
+	    const tf::Vector3 p3(hr.m_OutputVertices[hr.m_Indices[j * 3 + 2]][0],hr.m_OutputVertices[hr.m_Indices[j * 3 + 2]][1],hr.m_OutputVertices[hr.m_Indices[j * 3 + 2]][2]);
 	    
 	    tf::Vector3 edge1 = (p2 - p1);
 	    tf::Vector3 edge2 = (p3 - p1);
@@ -804,12 +805,12 @@ void bodies::ConvexMesh::useDimensions(const shapes::Shape *shape)
 	    if (planeNormal.length2() > tfScalar(1e-6))
 	    {
 		planeNormal.normalize();
-		btVector4 planeEquation(planeNormal.getX(), planeNormal.getY(), planeNormal.getZ(), -planeNormal.dot(p1));
+		tf::tfVector4 planeEquation(planeNormal.getX(), planeNormal.getY(), planeNormal.getZ(), -planeNormal.dot(p1));
 
 		unsigned int behindPlane = countVerticesBehindPlane(planeEquation);
 		if (behindPlane > 0)
 		{
-		    btVector4 planeEquation2(-planeEquation.getX(), -planeEquation.getY(), -planeEquation.getZ(), -planeEquation.getW());
+		    tf::tfVector4 planeEquation2(-planeEquation.getX(), -planeEquation.getY(), -planeEquation.getZ(), -planeEquation.getW());
 		    unsigned int behindPlane2 = countVerticesBehindPlane(planeEquation2);
 		    if (behindPlane2 < behindPlane)
 		    {
@@ -870,21 +871,21 @@ bool bodies::ConvexMesh::isPointInsidePlanes(const tf::Vector3& point) const
     unsigned int numplanes = m_planes.size();
     for (unsigned int i = 0 ; i < numplanes ; ++i)
     {
-	const btVector4& plane = m_planes[i];
-	tfScalar dist = plane.dot(point.asBt()) + plane.getW() - m_padding - btScalar(1e-6);
+	const tf::tfVector4& plane = m_planes[i];
+	tfScalar dist = plane.dot(point) + plane.getW() - m_padding - tfScalar(1e-6);
 	if (dist > tfScalar(0))
 	    return false;
     }
     return true;
 }
 
-unsigned int bodies::ConvexMesh::countVerticesBehindPlane(const btVector4& planeNormal) const
+unsigned int bodies::ConvexMesh::countVerticesBehindPlane(const tf::tfVector4& planeNormal) const
 {
     unsigned int numvertices = m_vertices.size();
     unsigned int result = 0;
     for (unsigned int i = 0 ; i < numvertices ; ++i)
     {
-	tfScalar dist = planeNormal.dot(m_vertices[i].asBt()) + planeNormal.getW() - tfScalar(1e-6);
+	tfScalar dist = planeNormal.dot(m_vertices[i]) + planeNormal.getW() - tfScalar(1e-6);
 	if (dist > tfScalar(0))
 	    result++;
     }
@@ -921,10 +922,10 @@ bool bodies::ConvexMesh::intersectsRay(const tf::Vector3& origin, const tf::Vect
     const unsigned int nt = m_triangles.size() / 3;
     for (unsigned int i = 0 ; i < nt ; ++i)
     {
-	tfScalar tmp = m_planes[i].dot(dr.asBt());
+	tfScalar tmp = m_planes[i].dot(dr);
 	if (fabs(tmp) > ZERO)
 	{
-	    double t = -(m_planes[i].dot(orig.asBt()) + m_planes[i].getW()) / tmp;
+	    double t = -(m_planes[i].dot(orig) + m_planes[i].getW()) / tmp;
 	    if (t > 0.0)
 	    {
 		const int i3 = 3 * i;
