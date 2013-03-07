@@ -21,4 +21,7 @@ scan_filter_chain:
   type: laser_tilt_controller_filter/LaserTiltControllerFilter
   params:
     filter_sections: [1]
-    tilt_profile_times: [0.0, 1.8, 2.3125]
+    # The 1.75 entry here is .05 seconds less than the 1.8 entry in pr2_move_base/scripts/pr2_move_base.py.
+    # The reduction prevents marking obstacles at the top edge of the tilt scan, which for some reason do
+    # not reliably get cleared by later clearing scans.
+    tilt_profile_times: [0.0, 1.75, 2.3125]
