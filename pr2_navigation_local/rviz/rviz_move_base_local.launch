@@ -1,5 +1,5 @@
 <launch>
-  <node pkg="rviz" type="rviz" name="$(anon rviz)" args="-d $(find pr2_navigation_local)/rviz/move_base_local.vcg">
+  <node pkg="rviz" type="rviz" name="$(anon rviz)" args="-d $(find pr2_navigation_local)/rviz/move_base_local.rviz">
   </node>
   <node pkg="costmap_2d" type="costmap_2d_markers" name="voxel_visualizer">
     <remap from="voxel_grid" to="move_base_local_node/local_costmap/voxel_grid_throttled"/>
