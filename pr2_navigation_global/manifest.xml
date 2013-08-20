@@ -14,6 +14,8 @@
   <depend package="pr2_navigation_config"/>
   <depend package="pr2_move_base"/>
   <depend package="topic_tools"/>
+  <depend package="joint_trajectory_generator"/>
+  <depend package="pr2_tuck_arms_action"/>
 </package>
 
 
