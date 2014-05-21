@@ -1,0 +1,36 @@
+<package>
+  <name>semantic_point_annotator</name>
+  <version>0.1.17</version>
+  <description>A node which annotates 3D point cloud data with semantic labels.</description>
+
+  <maintainer email="radu@willowgarage.com">Radu Bogdan Rusu</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://pr.willowgarage.com</url>
+
+  <author>Radu Bogdan Rusu</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>eigen</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>pcl</build_depend>
+  <build_depend>pcl_ros</build_depend>
+
+  <run_depend>eigen</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>pcl</run_depend>
+  <run_depend>pcl_ros</run_depend>
+
+  <!-- <test_depend>roscpp</test_depend> -->
+  <!-- <test_depend>tf</test_depend> -->
+  <!-- <test_depend>pcl</test_depend> -->
+  <!-- <test_depend>pcl_ros</test_depend> -->
+
+  <export>
+
+  </export>
+</package>

@@ -1,0 +1,24 @@
+<package>
+  <name>pr2_navigation_config</name>
+  <version>0.1.17</version>
+  <description>This package holds common configuration files for running the</description>
+  <maintainer email="eitan@willowgarage.com">Maintained by Eitan Marder-Eppstein</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://pr.willowgarage.com/wiki</url>
+
+  <author>Eitan Marder-Eppstein</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>move_base</build_depend>
+
+  <run_depend>move_base</run_depend>
+
+  <!-- <test_depend>move_base</test_depend> -->
+
+  <export>
+
+  </export>
+</package>

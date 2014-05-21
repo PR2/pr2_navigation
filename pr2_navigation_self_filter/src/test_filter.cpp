@@ -100,7 +100,7 @@ public:
     {
       robot_self_filter::PointCloud in;
 	
-	in.header.stamp = ros::Time::now();
+	in.header.stamp = ros::Time::now().toNSec();
 	in.header.frame_id = "base_link";
 	
 	const unsigned int N = 500000;	

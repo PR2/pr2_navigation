@@ -1,0 +1,69 @@
+<package>
+  <name>pr2_navigation_perception</name>
+  <version>0.1.17</version>
+  <description>This package holds navigation-specific sensor configuration options and launch files for the PR2.</description>
+  <maintainer email="eitan@willowgarage.com">Maintained by Eitan Marder-Eppstein</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/pr2_navigation_perception</url>
+
+  <author>Eitan Marder-Eppstein</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>semantic_point_annotator</build_depend>
+  <build_depend>laser_filters</build_depend>
+  <build_depend>pr2_machine</build_depend>
+  <build_depend>topic_tools</build_depend>
+  <build_depend>pr2_navigation_self_filter</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>filters</build_depend>
+  <build_depend>message_filters</build_depend>
+  <build_depend>laser_geometry</build_depend>
+  <build_depend>laser_tilt_controller_filter</build_depend>
+  <build_depend>pcl</build_depend>
+  <build_depend>pcl_ros</build_depend>
+
+  <run_depend>semantic_point_annotator</run_depend>
+  <run_depend>laser_filters</run_depend>
+  <run_depend>pr2_machine</run_depend>
+  <run_depend>topic_tools</run_depend>
+  <run_depend>pr2_navigation_self_filter</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>filters</run_depend>
+  <run_depend>message_filters</run_depend>
+  <run_depend>laser_geometry</run_depend>
+  <run_depend>laser_tilt_controller_filter</run_depend>
+  <run_depend>pcl</run_depend>
+  <run_depend>pcl_ros</run_depend>
+
+  <!-- <test_depend>semantic_point_annotator</test_depend> -->
+  <!-- <test_depend>laser_filters</test_depend> -->
+  <!-- <test_depend>pr2_machine</test_depend> -->
+  <!-- <test_depend>topic_tools</test_depend> -->
+  <!-- <test_depend>pr2_navigation_self_filter</test_depend> -->
+  <!-- <test_depend>geometry_msgs</test_depend> -->
+  <!-- <test_depend>dynamic_reconfigure</test_depend> -->
+  <!-- <test_depend>sensor_msgs</test_depend> -->
+  <!-- <test_depend>roscpp</test_depend> -->
+  <!-- <test_depend>tf</test_depend> -->
+  <!-- <test_depend>filters</test_depend> -->
+  <!-- <test_depend>message_filters</test_depend> -->
+  <!-- <test_depend>laser_geometry</test_depend> -->
+  <!-- <test_depend>laser_tilt_controller_filter</test_depend> -->
+  <!-- <test_depend>pcl</test_depend> -->
+  <!-- <test_depend>pcl_ros</test_depend> -->
+
+  <export>
+    <filters plugin="${prefix}/config/pr2_laser_filters/pr2_laser_filters_plugins.xml"/>
+  </export>
+</package>
