@@ -4,7 +4,7 @@
   <a href="http://www.ros.org/wiki/navigation">navigation</a> stack on a PR2 robot. The packages in this stack are used by
   many PR2-specific applications that use planar navigation.
   </description>
-  <author>Maintained by Eitan Marder-Eppstein</author>
+  <author>Maintained by Eitan Marder-Eppstein, Devon Ash</author>
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/pr2_navigation</url>
