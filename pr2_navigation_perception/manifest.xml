@@ -1,0 +1,34 @@
+<package>
+  <description brief="PR2 navigation-specific sensor configurations.">
+
+     This package holds navigation-specific sensor configuration options and launch files for the PR2.
+
+  </description>
+  <author>Eitan Marder-Eppstein</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/pr2_navigation_perception</url>
+  <depend package="semantic_point_annotator"/>
+  <depend package="laser_filters"/>
+  <depend package="pr2_machine"/>
+  <depend package="topic_tools"/>
+  <depend package="pr2_navigation_self_filter"/>
+  <depend package="geometry_msgs"/>
+  <depend package="dynamic_reconfigure"/>
+  <depend package="sensor_msgs"/>
+  <depend package="roscpp"/>
+  <depend package="tf"/>
+  <depend package="filters"/>
+  <depend package="message_filters"/>
+  <depend package="laser_geometry"/>
+  <depend package="laser_tilt_controller_filter"/>
+  <depend package="pcl" />
+  <depend package="pcl_ros" />
+
+  <export>
+    <filters plugin="${prefix}/config/pr2_laser_filters/pr2_laser_filters_plugins.xml" />
+  </export>
+
+</package>
+
+

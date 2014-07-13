@@ -86,9 +86,7 @@ public:
     pcl::fromROSMsg(input_scan2, input_scan);
 
     try{
-      std_msgs::Header header;
-      header = pcl_conversions::fromPCL(input_scan.header);
-      tf_.waitForTransform(input_scan.header.frame_id, "base_link", header.stamp, ros::Duration(0.2));
+      tf_.waitForTransform(input_scan.header.frame_id, "base_link", input_scan.header.stamp, ros::Duration(0.2));
       pcl_ros::transformPointCloud("base_link", input_scan, laser_cloud, tf_);
     }
     catch(tf::TransformException& ex){

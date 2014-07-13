@@ -1,27 +1,23 @@
-# http://ros.org/doc/groovy/api/catkin/html/user_guide/supposed.html
-cmake_minimum_required(VERSION 2.8.3)
-project(pr2_navigation_perception)
+cmake_minimum_required(VERSION 2.4.6)
+include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
-find_package(catkin REQUIRED COMPONENTS semantic_point_annotator laser_filters pr2_machine topic_tools pr2_navigation_self_filter geometry_msgs dynamic_reconfigure sensor_msgs roscpp tf filters message_filters laser_geometry laser_tilt_controller_filter pcl_ros)
+# Set the build type.  Options are:
+#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
+#  Debug          : w/ debug symbols, w/o optimization
+#  Release        : w/o debug symbols, w/ optimization
+#  RelWithDebInfo : w/ debug symbols, w/ optimization
+#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
+#set(ROS_BUILD_TYPE RelWithDebInfo)
 
-include_directories(${PROJECT_SOURCE_DIR}/config/pr2_laser_filters/include ${catkin_INCLUDE_DIRS})
+rosbuild_init()
 
-add_library(pr2_point_cloud_filters config/pr2_laser_filters/src/pr2_point_cloud_filters.cpp)
+#set the default path for built executables to the "bin" directory
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+#set the default path for built libraries to the "lib" directory
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-catkin_package(
-    DEPENDS 
-    CATKIN-DEPENDS semantic_point_annotator laser_filters pr2_machine topic_tools pr2_navigation_self_filter geometry_msgs dynamic_reconfigure sensor_msgs roscpp tf filters message_filters laser_geometry laser_tilt_controller_filter pcl_ros
-    INCLUDE_DIRS config/pr2_laser_filters/include
-    LIBRARIES pr2_point_cloud_filters
-)
+include_directories(${PROJECT_SOURCE_DIR}/config/pr2_laser_filters/include)
 
-install(TARGETS pr2_point_cloud_filters
-   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
-   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+rosbuild_add_boost_directories()
 
-install(FILES  ground_plane.xml lasers_and_filters.xml
-   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
-
-install(DIRECTORY config
-   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+rosbuild_add_library(pr2_point_cloud_filters config/pr2_laser_filters/src/pr2_point_cloud_filters.cpp)

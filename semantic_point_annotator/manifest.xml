@@ -1,0 +1,16 @@
+<package>
+  <description>
+    A node which annotates 3D point cloud data with semantic labels.
+  </description>
+
+  <author>Radu Bogdan Rusu</author>
+  <license>BSD</license>
+  <url>http://pr.willowgarage.com</url>
+  <review status="experimental" notes="beta"/>
+
+  <depend package="roscpp" />
+  <depend package="tf" />
+  <depend package="pcl" />
+  <depend package="pcl_ros" />
+  
+</package>

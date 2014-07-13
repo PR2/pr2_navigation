@@ -73,8 +73,8 @@ class IncGroundRemoval
 
     tf::TransformListener tf_;
     geometry_msgs::PointStamped viewpoint_cloud_;
-    tf::MessageFilter<sensor_msgs::PointCloud2>* cloud_notifier_;
-    message_filters::Subscriber<sensor_msgs::PointCloud2>* cloud_subscriber_;
+    tf::MessageFilter<sample_consensus::PointCloud>* cloud_notifier_;
+    message_filters::Subscriber<sample_consensus::PointCloud>* cloud_subscriber_;
   
     // Parameters
     double z_threshold_, ground_slope_threshold_;
@@ -119,14 +119,14 @@ class IncGroundRemoval
       ros::NodeHandle public_node;
 
       //subscribe (cloud_topic.c_str (), laser_cloud_, &IncGroundRemoval::cloud_cb, 1);
-      cloud_subscriber_ = new message_filters::Subscriber<sensor_msgs::PointCloud2>(public_node,cloud_topic,50);
-      cloud_notifier_ = new tf::MessageFilter<sensor_msgs::PointCloud2>(*cloud_subscriber_,tf_,"odom_combined",50);
+      cloud_subscriber_ = new message_filters::Subscriber<sample_consensus::PointCloud>(public_node,cloud_topic,50);
+      cloud_notifier_ = new tf::MessageFilter<sample_consensus::PointCloud>(*cloud_subscriber_,tf_,"odom_combined",50);
       cloud_notifier_->registerCallback(boost::bind(&IncGroundRemoval::cloud_cb,this,_1));
 
 //      cloud_notifier_ = new tf::MessageNotifier<sample_consensus::PointCloud> (&tf_, node_,
 //                        boost::bind (&IncGroundRemoval::cloud_cb, this, _1), cloud_topic, "odom_combined", 50);
 
-      cloud_publisher_ = public_node.advertise<sensor_msgs::PointCloud2> ("cloud_ground_filtered", 1);
+      cloud_publisher_ = public_node.advertise<sample_consensus::PointCloud> ("cloud_ground_filtered", 1);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -312,9 +312,9 @@ class IncGroundRemoval
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Callback
-    void cloud_cb (const sensor_msgs::PointCloud2::ConstPtr& msg)
+    void cloud_cb (const sample_consensus::PointCloud::ConstPtr& msg)
     {
-      pcl::fromROSMsg(*msg,laser_cloud_);
+      laser_cloud_ = *msg;
       //check to see if the point cloud is empty
       if(laser_cloud_.points.empty()){
         ROS_DEBUG("Received an empty point cloud");
@@ -345,8 +345,7 @@ class IncGroundRemoval
       getCloudViewPoint (cloud_.header.frame_id, viewpoint_cloud_, &tf_);
 
       // Transform z_threshold_ from the parameter parameter frame (parameter_frame_) into the point cloud frame
-      std_msgs::Header header = pcl_conversions::fromPCL(cloud_.header);
-      double z_threshold_cloud = transformDoubleValueTF (z_threshold_, robot_footprint_frame_, cloud_.header.frame_id, header.stamp, &tf_);
+      double z_threshold_cloud = transformDoubleValueTF (z_threshold_, robot_footprint_frame_, cloud_.header.frame_id, cloud_.header.stamp, &tf_);
 
       // Select points whose Z dimension is close to the ground (0,0,0 in base_footprint) or under a gentle slope (allowing for pitch/roll error)
       vector<int> possible_ground_indices (cloud_.points.size ());
@@ -435,9 +434,7 @@ class IncGroundRemoval
       double time_spent = t2.tv_sec + (double)t2.tv_usec / 1000000.0 - (t1.tv_sec + (double)t1.tv_usec / 1000000.0);
       ROS_DEBUG ("Number of points found on ground plane: %d ; remaining: %d (%g seconds).", (int)ground_inliers.size (),
                 (int)remaining_indices.size (), time_spent);
-      sensor_msgs::PointCloud2 out;
-      pcl::toROSMsg(cloud_noground_, out);
-      cloud_publisher_.publish (out);
+      cloud_publisher_.publish (cloud_noground_);
     }
 
 

@@ -1,0 +1,24 @@
+<package>
+  <description brief="pr2_navigation_self_filter">
+
+     Filters the robot's body out of point clouds.
+
+  </description>
+  <author>Eitan Marder-Eppstein</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/pr2_navigation_self_filter</url>
+  <depend package="roscpp"/>
+  <depend package="tf"/>
+  <depend package="filters"/>
+  <depend package="sensor_msgs"/>
+  <depend package="urdf"/>
+  <depend package="bullet"/>
+  <depend package="resource_retriever"/>
+  <depend package="visualization_msgs"/>
+  <depend package="pcl"/>
+  <depend package="pcl_ros"/>
+
+</package>
+
+

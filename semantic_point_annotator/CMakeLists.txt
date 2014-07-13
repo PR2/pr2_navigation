@@ -1,34 +1,18 @@
-# http://ros.org/doc/groovy/api/catkin/html/user_guide/supposed.html
-cmake_minimum_required(VERSION 2.8.3)
-project(semantic_point_annotator)
+cmake_minimum_required(VERSION 2.4.6)
 
-find_package(catkin REQUIRED COMPONENTS roscpp tf pcl_ros)
+include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+set(ROS_BUILD_TYPE Release)
+#set(ROS_BUILD_TYPE Debug)
+rosbuild_init()
 
 find_package(PkgConfig)
-
-find_package(Boost REQUIRED COMPONENTS signals)
-
-pkg_check_modules(PC_EIGEN REQUIRED eigen)
+pkg_check_modules(PC_EIGEN REQUIRED eigen3)
+include_directories(${PC_EIGEN_INCLUDE_DIRS})
 add_definitions(${PC_EIGEN_CFLAGS_OTHER})
 
-find_package( PCL REQUIRED )
-add_definitions(${PCL_DEFINITIONS})
+rosbuild_add_boost_directories()
 
-add_executable(sac_inc_ground_removal_node src/sac_inc_ground_removal_standalone.cpp src/sac/sac.cpp src/sac/ransac.cpp src/sac/sac_model.cpp src/sac/sac_model_line.cpp)
-include_directories(include/${PROJECT_NAME} ${Boost_INCLUDE_DIRS} ${PC_EIGEN_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS}  ${caktin_INCLUDE_DIRS})
-target_link_libraries(sac_inc_ground_removal_node ${Boost_LIBRARIES} ${PCL_LIBRARIES} ${catkin_LIBRARIES})
-
-catkin_package(
-    DEPENDS pcl eigen
-    CATKIN-DEPENDS roscpp tf pcl_ros
-    INCLUDE_DIRS include
-    LIBRARIES
-)
-
-install(DIRECTORY include/${PROJECT_NAME}/
-   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
-
-install(TARGETS sac_inc_ground_removal_node
-   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
-   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+#
+rosbuild_add_executable(sac_inc_ground_removal_node src/sac_inc_ground_removal_standalone.cpp src/sac/sac.cpp src/sac/ransac.cpp src/sac/sac_model.cpp src/sac/sac_model_line.cpp)
+rosbuild_link_boost(sac_inc_ground_removal_node signals)

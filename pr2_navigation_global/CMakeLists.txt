@@ -1,18 +1,30 @@
-# http://ros.org/doc/groovy/api/catkin/html/user_guide/supposed.html
-cmake_minimum_required(VERSION 2.8.3)
-project(pr2_navigation_global)
+cmake_minimum_required(VERSION 2.4.6)
+include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
-find_package(catkin REQUIRED COMPONENTS move_base amcl pr2_machine pr2_navigation_config pr2_move_base topic_tools joint_trajectory_generator pr2_tuck_arms_action)
+# Set the build type.  Options are:
+#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
+#  Debug          : w/ debug symbols, w/o optimization
+#  Release        : w/o debug symbols, w/ optimization
+#  RelWithDebInfo : w/ debug symbols, w/ optimization
+#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
+#set(ROS_BUILD_TYPE RelWithDebInfo)
 
-catkin_package(
-    DEPENDS 
-    CATKIN-DEPENDS move_base amcl pr2_machine pr2_navigation_config pr2_move_base topic_tools joint_trajectory_generator pr2_tuck_arms_action
-    INCLUDE_DIRS
-    LIBRARIES
-)
+rosbuild_init()
 
-install(FILES amcl_node.xml move_base.xml
-   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+#set the default path for built executables to the "bin" directory
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+#set the default path for built libraries to the "lib" directory
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-install(DIRECTORY config rviz
-   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+#uncomment if you have defined messages
+#rosbuild_genmsg()
+#uncomment if you have defined services
+#rosbuild_gensrv()
+
+#common commands for building c++ executables and libraries
+#rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
+#target_link_libraries(${PROJECT_NAME} another_library)
+#rosbuild_add_boost_directories()
+#rosbuild_link_boost(${PROJECT_NAME} thread)
+#rosbuild_add_executable(example examples/example.cpp)
+#target_link_libraries(example ${PROJECT_NAME})

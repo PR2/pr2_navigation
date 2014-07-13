@@ -1,0 +1,28 @@
+<stack>
+  <description brief="Common configuration options for planar navigation applications on the PR2 robot.">
+  The pr2_navigation stack holds common configuration options for running the
+  <a href="http://www.ros.org/wiki/navigation">navigation</a> stack on a PR2 robot. The packages in this stack are used by
+  many PR2-specific applications that use planar navigation.
+  </description>
+  <author>Maintained by Eitan Marder-Eppstein</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/pr2_navigation</url>
+  <depend stack="actionlib" /> <!-- actionlib -->
+  <depend stack="bullet" /> <!-- bullet -->
+  <depend stack="dynamic_reconfigure" /> <!-- dynamic_reconfigure -->
+  <depend stack="filters" /> <!-- filters -->
+  <depend stack="geometry" /> <!-- tf -->
+  <depend stack="laser_pipeline" /> <!-- laser_filters, laser_geometry -->
+  <depend stack="navigation" /> <!-- move_base_msgs, move_base, amcl -->
+  <depend stack="pluginlib" /> <!-- pluginlib -->
+  <depend stack="pr2_apps" /> <!-- pr2_teleop -->
+  <depend stack="pr2_common" /> <!-- pr2_machine, pr2_msgs -->
+  <depend stack="pr2_common_actions" /> <!-- pr2_common_action_msgs -->
+  <depend stack="pr2_controllers" /> <!-- pr2_controllers_msgs -->
+  <depend stack="robot_model" /> <!-- urdf, resource_retriever -->
+  <depend stack="ros_comm" /> <!-- topic_tools, rospy, roscpp, message_filters -->
+  <depend stack="ros" /> <!--  -->
+  <depend stack="slam_gmapping" /> <!-- gmapping -->
+
+</stack>

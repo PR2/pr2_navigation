@@ -1,0 +1,21 @@
+<package>
+  <description brief="XML files for running global navigation assuming a static map on a PR2 robot.">
+
+     This package holds XML files for running the <a href="http://www.ros.org/wiki/move_base">move_base</a> node on a PR2 robot. The <a href="http://www.ros.org/wiki/move_base">move_base</a> node is configured to run over a pre-specified static map.
+
+  </description>
+  <author>Eitan Marder-Eppstein</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/pr2_navigation_global</url>
+  <depend package="move_base"/>
+  <depend package="amcl"/>
+  <depend package="pr2_machine"/>
+  <depend package="pr2_navigation_config"/>
+  <depend package="pr2_move_base"/>
+  <depend package="topic_tools"/>
+  <depend package="joint_trajectory_generator"/>
+  <depend package="pr2_tuck_arms_action"/>
+</package>
+
+

@@ -231,8 +231,7 @@ void robot_self_filter::SelfMask::maskContainment(const PointCloud& data_in, std
 	std::fill(mask.begin(), mask.end(), (int)OUTSIDE);
     else
     {
-	std_msgs::Header header = pcl_conversions::fromPCL(data_in.header);
-	assumeFrame(header);
+	assumeFrame(data_in.header);
 	maskAuxContainment(data_in, mask);
     }
 }
@@ -246,8 +245,7 @@ void robot_self_filter::SelfMask::maskIntersection(const PointCloud& data_in, co
     }
     else
     {
-	std_msgs::Header header = pcl_conversions::fromPCL(data_in.header);
-	assumeFrame(header, sensor_frame, min_sensor_dist);
+	assumeFrame(data_in.header, sensor_frame, min_sensor_dist);
 	if (sensor_frame.empty())
 	    maskAuxContainment(data_in, mask);
 	else
@@ -263,8 +261,7 @@ void robot_self_filter::SelfMask::maskIntersection(const PointCloud& data_in, co
 	std::fill(mask.begin(), mask.end(), (int)OUTSIDE);
     else
     {
-	std_msgs::Header header = pcl_conversions::fromPCL(data_in.header);
-	assumeFrame(header, sensor_pos, min_sensor_dist);
+	assumeFrame(data_in.header, sensor_pos, min_sensor_dist);
 	maskAuxIntersection(data_in, mask, callback);
     }
 }

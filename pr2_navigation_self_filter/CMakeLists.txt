@@ -1,48 +1,39 @@
-# http://ros.org/doc/groovy/api/catkin/html/user_guide/supposed.html
-cmake_minimum_required(VERSION 2.8.3)
-project(pr2_navigation_self_filter)
+cmake_minimum_required(VERSION 2.4.6)
+include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
-find_package(PkgConfig REQUIRED)
+# Set the build type.  Options are:
+#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
+#  Debug          : w/ debug symbols, w/o optimization
+#  Release        : w/o debug symbols, w/ optimization
+#  RelWithDebInfo : w/ debug symbols, w/ optimization
+#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
+set(ROS_BUILD_TYPE Release)
 
-find_package(Boost REQUIRED COMPONENTS signals)
+rosbuild_init()
+rosbuild_add_boost_directories()
 
-set(bullet_FOUND 0)
-pkg_check_modules(bullet REQUIRED bullet)
+#set the default path for built executables to the "bin" directory
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+#set the default path for built libraries to the "lib" directory
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-find_package( PCL REQUIRED )
-add_definitions(${PCL_DEFINITIONS})
-
-find_package(catkin REQUIRED COMPONENTS roscpp tf filters sensor_msgs urdf resource_retriever visualization_msgs pcl_ros)
+#uncomment if you have defined messages
+#rosbuild_genmsg()
+#uncomment if you have defined services
+#rosbuild_gensrv()
 
 #common commands for building c++ executables and libraries
-add_library(pr2_navigation_geometric_shapes src/load_mesh.cpp src/shapes.cpp src/bodies.cpp)
+rosbuild_add_library(pr2_navigation_geometric_shapes src/load_mesh.cpp src/shapes.cpp src/bodies.cpp)
 
-add_library(${PROJECT_NAME} src/self_mask.cpp)
+rosbuild_add_library(${PROJECT_NAME} src/self_mask.cpp)
 target_link_libraries(${PROJECT_NAME} pr2_navigation_geometric_shapes)
 
 
-add_executable(test_filter src/test_filter.cpp)
+rosbuild_add_executable(test_filter src/test_filter.cpp)
 target_link_libraries(test_filter ${PROJECT_NAME})
 target_link_libraries(test_filter pr2_navigation_geometric_shapes)
 
-add_executable(self_filter src/self_filter.cpp)
+rosbuild_add_executable(self_filter src/self_filter.cpp)
 target_link_libraries(self_filter ${PROJECT_NAME})
 target_link_libraries(self_filter pr2_navigation_geometric_shapes)
-
-include_directories(include ${bullet_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
-target_link_libraries(pr2_navigation_geometric_shapes ${bullet_LIBRARIES} ${Boost_LIBRARIES} ${PCL_LIBRARIES} ${catkin_LIBRARIES})
-
-catkin_package(
-    DEPENDS bullet
-    CATKIN-DEPENDS roscpp tf filters sensor_msgs urdf resource_retriever visualization_msgs pcl_ros
-    INCLUDE_DIRS include
-    LIBRARIES pr2_navigation_geometric_shapes ${PROJECT_NAME}
-)
-
-install(DIRECTORY include/${PROJECT_NAME}/
-   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
-
-install(TARGETS ${PROJECT_NAME} test_filter self_filter pr2_navigation_geometric_shapes
-   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
-   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+rosbuild_link_boost(self_filter signals)

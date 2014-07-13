@@ -1,0 +1,10 @@
+<package>
+  <description brief="PR2-specific move_base configuration">
+  This package holds common configuration files for running the <a href="http://www.ros.org/wiki/move_base">move_base</a> node on the PR2 robot.
+  </description>
+  <author>Eitan Marder-Eppstein</author>
+  <license>BSD</license>
+  <review status="na" notes=""/>
+  <url>http://pr.willowgarage.com/wiki</url>
+  <depend package="move_base"/>
+</package>
