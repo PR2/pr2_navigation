@@ -1,6 +1,6 @@
 <package>
   <name>pr2_move_base</name>
-  <version>0.1.17</version>
+  <version>0.1.18</version>
   <description>pr2_move_base</description>
   <maintainer email="eitan@willowgarage.com">Maintained by Eitan Marder-Eppstein</maintainer>
 

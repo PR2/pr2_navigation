@@ -1,6 +1,6 @@
 <package>
   <name>laser_tilt_controller_filter</name>
-  <version>0.1.17</version>
+  <version>0.1.18</version>
   <description>laser_tilt_controller_filter</description>
   <maintainer email="eitan@willowgarage.com">Maintained by Eitan Marder-Eppstein</maintainer>
 
