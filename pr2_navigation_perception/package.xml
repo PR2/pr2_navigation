@@ -26,7 +26,6 @@
   <build_depend>message_filters</build_depend>
   <build_depend>laser_geometry</build_depend>
   <build_depend>laser_tilt_controller_filter</build_depend>
-  <build_depend>pcl</build_depend>
   <build_depend>pcl_ros</build_depend>
 
   <run_depend>semantic_point_annotator</run_depend>
@@ -43,7 +42,6 @@
   <run_depend>message_filters</run_depend>
   <run_depend>laser_geometry</run_depend>
   <run_depend>laser_tilt_controller_filter</run_depend>
-  <run_depend>pcl</run_depend>
   <run_depend>pcl_ros</run_depend>
 
   <!-- <test_depend>semantic_point_annotator</test_depend> -->
@@ -60,7 +58,6 @@
   <!-- <test_depend>message_filters</test_depend> -->
   <!-- <test_depend>laser_geometry</test_depend> -->
   <!-- <test_depend>laser_tilt_controller_filter</test_depend> -->
-  <!-- <test_depend>pcl</test_depend> -->
   <!-- <test_depend>pcl_ros</test_depend> -->
 
   <export>
