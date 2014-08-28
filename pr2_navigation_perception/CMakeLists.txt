@@ -13,7 +13,6 @@ catkin_package(
 
 include_directories(${PROJECT_SOURCE_DIR}/config/pr2_laser_filters/include ${catkin_INCLUDE_DIRS})
 
-
 add_library(pr2_point_cloud_filters config/pr2_laser_filters/src/pr2_point_cloud_filters.cpp)
 target_link_libraries(pr2_point_cloud_filters ${catkin_LIBRARIES} ${pcl_ros_LIBRARIES})
 

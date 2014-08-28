@@ -22,7 +22,6 @@ catkin_package(
     LIBRARIES pr2_navigation_geometric_shapes ${PROJECT_NAME}
 )
 
-
 #common commands for building c++ executables and libraries
 add_library(pr2_navigation_geometric_shapes src/load_mesh.cpp src/shapes.cpp src/bodies.cpp)
 
