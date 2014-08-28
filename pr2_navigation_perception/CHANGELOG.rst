@@ -2,8 +2,8 @@
 Changelog for package pr2_navigation_perception
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.18 (2014-08-25)
+-------------------
 * catkinize packages
 * Add ignores.
 * Fixes to keep costmap clean of artifacts in voxel grid.

@@ -1,6 +1,6 @@
 <package>
   <name>pr2_navigation_config</name>
-  <version>0.1.17</version>
+  <version>0.1.19</version>
   <description>This package holds common configuration files for running the</description>
   <maintainer email="eitan@willowgarage.com">Maintained by Eitan Marder-Eppstein</maintainer>
 

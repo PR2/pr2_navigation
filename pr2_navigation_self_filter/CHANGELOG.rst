@@ -2,8 +2,8 @@
 Changelog for package pr2_navigation_self_filter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.18 (2014-08-25)
+-------------------
 * catkinize packages
 * Add ignores.
 * use less bullet and more tf
