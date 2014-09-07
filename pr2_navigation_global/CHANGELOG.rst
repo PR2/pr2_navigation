@@ -2,6 +2,14 @@
 Changelog for package pr2_navigation_global
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* 0.1.19
+* Added changelogs
+* 0.1.18
+* Generating changelogs; preparing for release
+* Contributors: TheDash
+
 0.1.19 (2014-09-06)
 -------------------
 * 0.1.18
