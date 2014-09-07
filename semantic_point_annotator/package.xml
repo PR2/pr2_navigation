@@ -1,6 +1,6 @@
 <package>
   <name>semantic_point_annotator</name>
-  <version>0.1.20</version>
+  <version>0.1.21</version>
   <description>A node which annotates 3D point cloud data with semantic labels.</description>
 
   <maintainer email="radu@willowgarage.com">Radu Bogdan Rusu</maintainer>
