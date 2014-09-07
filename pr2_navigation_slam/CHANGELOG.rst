@@ -2,8 +2,8 @@
 Changelog for package pr2_navigation_slam
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.18 (2014-09-06)
+-------------------
 * catkinize packages
 * Add ignores.
 * Add missing manifest dependencies.

@@ -2,8 +2,8 @@
 Changelog for package semantic_point_annotator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.18 (2014-09-06)
+-------------------
 * catkinize packages
 * Add ignores.
 * Removing some launch files that we don't need anymore
