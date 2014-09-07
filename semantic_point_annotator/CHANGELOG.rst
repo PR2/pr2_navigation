@@ -2,6 +2,9 @@
 Changelog for package semantic_point_annotator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.20 (2014-09-06)
 -------------------
 * 0.1.19

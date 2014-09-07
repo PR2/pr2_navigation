@@ -2,6 +2,11 @@
 Changelog for package pr2_navigation_perception
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Removed unnecesary dependency on deprecated pcl
+* Contributors: TheDash
+
 0.1.20 (2014-09-06)
 -------------------
 * 0.1.19
