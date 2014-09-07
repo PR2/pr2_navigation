@@ -1,6 +1,6 @@
 <package>
   <name>pr2_navigation_teleop</name>
-  <version>0.1.19</version>
+  <version>0.1.20</version>
   <description>This package holds a special teleop configuration for the PR2 robot that
      should be used when running applications that use autonomous navigation.</description>
   <maintainer email="eitan@willowgarage.com">Maintained by Eitan Marder-Eppstein</maintainer>
