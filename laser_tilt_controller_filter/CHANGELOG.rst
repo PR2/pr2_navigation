@@ -2,8 +2,8 @@
 Changelog for package laser_tilt_controller_filter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.19 (2014-09-06)
+-------------------
 * 0.1.18
 * Generating changelogs; preparing for release
 * Contributors: TheDash
