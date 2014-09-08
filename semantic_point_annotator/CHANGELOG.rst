@@ -2,6 +2,11 @@
 Changelog for package semantic_point_annotator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Removed dependency on pcl
+* Contributors: TheDash
+
 0.1.21 (2014-09-06)
 -------------------
 

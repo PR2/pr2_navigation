@@ -2,6 +2,9 @@
 Changelog for package pr2_navigation_global
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.21 (2014-09-06)
 -------------------
 
