@@ -19,7 +19,7 @@ include_directories(include/${PROJECT_NAME} ${Boost_INCLUDE_DIRS} ${PC_EIGEN_INC
 target_link_libraries(sac_inc_ground_removal_node ${Boost_LIBRARIES} ${PCL_LIBRARIES} ${catkin_LIBRARIES})
 
 catkin_package(
-    DEPENDS pcl eigen
+    DEPENDS  eigen
     CATKIN-DEPENDS roscpp tf pcl_ros
     INCLUDE_DIRS include
     LIBRARIES

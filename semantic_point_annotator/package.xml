@@ -16,13 +16,11 @@
   <build_depend>eigen</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>tf</build_depend>
-  <build_depend>pcl</build_depend>
   <build_depend>pcl_ros</build_depend>
 
   <run_depend>eigen</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>tf</run_depend>
-  <run_depend>pcl</run_depend>
   <run_depend>pcl_ros</run_depend>
 
   <!-- <test_depend>roscpp</test_depend> -->
