@@ -8,7 +8,6 @@ find_package(PkgConfig)
 
 find_package(Boost REQUIRED COMPONENTS signals)
 
-pkg_check_modules(PC_EIGEN REQUIRED eigen)
 add_definitions(${PC_EIGEN_CFLAGS_OTHER})
 
 find_package( PCL REQUIRED )
