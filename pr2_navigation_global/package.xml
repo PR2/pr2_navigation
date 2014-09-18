@@ -2,7 +2,7 @@
   <name>pr2_navigation_global</name>
   <version>0.1.22</version>
   <description>This package holds XML files for running the</description>
-  <maintainer email="eitan@willowgarage.com">Maintained by Eitan Marder-Eppstein</maintainer>
+  <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
 
   <license>BSD</license>
 

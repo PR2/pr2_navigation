@@ -3,7 +3,7 @@
   <version>0.1.22</version>
   <description>This package holds a special teleop configuration for the PR2 robot that
      should be used when running applications that use autonomous navigation.</description>
-  <maintainer email="eitan@willowgarage.com">Maintained by Eitan Marder-Eppstein</maintainer>
+  <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
 
   <license>BSD</license>
 
