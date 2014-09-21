@@ -14,6 +14,13 @@ add_definitions(${PCL_DEFINITIONS})
 
 find_package(catkin REQUIRED COMPONENTS roscpp tf filters sensor_msgs urdf resource_retriever visualization_msgs pcl_ros)
 
+catkin_package(
+    DEPENDS bullet
+    CATKIN-DEPENDS roscpp tf filters sensor_msgs urdf resource_retriever visualization_msgs pcl_ros
+    INCLUDE_DIRS include
+    LIBRARIES pr2_navigation_geometric_shapes ${PROJECT_NAME}
+)
+
 #common commands for building c++ executables and libraries
 add_library(pr2_navigation_geometric_shapes src/load_mesh.cpp src/shapes.cpp src/bodies.cpp)
 
@@ -32,12 +39,6 @@ target_link_libraries(self_filter pr2_navigation_geometric_shapes)
 include_directories(include ${bullet_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
 target_link_libraries(pr2_navigation_geometric_shapes ${bullet_LIBRARIES} ${Boost_LIBRARIES} ${PCL_LIBRARIES} ${catkin_LIBRARIES})
 
-catkin_package(
-    DEPENDS bullet
-    CATKIN-DEPENDS roscpp tf filters sensor_msgs urdf resource_retriever visualization_msgs pcl_ros
-    INCLUDE_DIRS include
-    LIBRARIES pr2_navigation_geometric_shapes ${PROJECT_NAME}
-)
 
 install(DIRECTORY include/${PROJECT_NAME}/
    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
