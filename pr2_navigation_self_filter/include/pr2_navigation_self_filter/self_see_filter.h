@@ -201,7 +201,10 @@ public:
 	
     for (unsigned int i = 0 ; i < np ; ++i)
     {
-      data_out.points.push_back(data_in.points[i]);
+      if (keep[i] == robot_self_filter::OUTSIDE)
+      {
+        data_out.points.push_back(data_in.points[i]);
+      }
     }
   }
 
