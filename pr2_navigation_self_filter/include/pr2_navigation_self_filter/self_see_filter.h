@@ -41,12 +41,12 @@ namespace filters
  *
  */
 
-template <typename T>
-class SelfFilter: public FilterBase <T>
+template <typename PointT>
+class SelfFilter: public FilterBase <pcl::PointCloud<PointT> >
 {
     
 public:
-
+  typedef pcl::PointCloud<PointT> PointCloud;
   /** \brief Construct the filter */
   SelfFilter(ros::NodeHandle nh) : nh_(nh)
   {
@@ -101,7 +101,7 @@ public:
         }      
       }
     }
-    sm_ = new robot_self_filter::SelfMask(tf_, links);
+    sm_ = new robot_self_filter::SelfMask<PointT>(tf_, links);
     if (!sensor_frame_.empty())
       ROS_INFO("Self filter is removing shadow points for sensor in frame '%s'. Minimum distance to sensor is %f.", sensor_frame_.c_str(), min_sensor_dist_);
   }
@@ -125,7 +125,7 @@ public:
     return true;
   }
 
-  bool updateWithSensorFrame(const robot_self_filter::PointCloud& data_in, robot_self_filter::PointCloud& data_out, const std::string& sensor_frame)
+  bool updateWithSensorFrame(const PointCloud& data_in, PointCloud& data_out, const std::string& sensor_frame)
   {
     sensor_frame_ = sensor_frame;
     return update(data_in, data_out);
@@ -135,7 +135,7 @@ public:
    * \param data_in T array with length width
    * \param data_out T array with length width
    */
-  virtual bool update(const robot_self_filter::PointCloud& data_in, robot_self_filter::PointCloud& data_out)
+  virtual bool update(const PointCloud& data_in, PointCloud& data_out)
   {
     std::vector<int> keep(data_in.points.size());
     if(sensor_frame_.empty()) {
@@ -147,7 +147,7 @@ public:
     return true;
   }
 
-  bool updateWithSensorFrame(const robot_self_filter::PointCloud& data_in, robot_self_filter::PointCloud& data_out, robot_self_filter::PointCloud& data_diff, const std::string& sensor_frame)
+  bool updateWithSensorFrame(const PointCloud& data_in, PointCloud& data_out, PointCloud& data_diff, const std::string& sensor_frame)
   {
     sensor_frame_ = sensor_frame;
     return update(data_in, data_out, data_diff);
@@ -157,7 +157,7 @@ public:
    * \param data_in T array with length width
    * \param data_out T array with length width
    */
-  virtual bool update(const robot_self_filter::PointCloud& data_in, robot_self_filter::PointCloud& data_out, robot_self_filter::PointCloud& data_diff)
+  virtual bool update(const PointCloud& data_in, PointCloud& data_out, PointCloud& data_diff)
   {
     std::vector<int> keep(data_in.points.size());
     if(sensor_frame_.empty()) {
@@ -170,7 +170,7 @@ public:
     return true;
   }
 
-  void fillDiff(const robot_self_filter::PointCloud& data_in, const std::vector<int> &keep, robot_self_filter::PointCloud& data_out)
+  void fillDiff(const PointCloud& data_in, const std::vector<int> &keep, PointCloud& data_out)
   {
     const unsigned int np = data_in.points.size();
 	
@@ -189,7 +189,7 @@ public:
     }
   }
 
-  void fillResult(const robot_self_filter::PointCloud& data_in, const std::vector<int> &keep, robot_self_filter::PointCloud& data_out)
+  void fillResult(const PointCloud& data_in, const std::vector<int> &keep, PointCloud& data_out)
   {
     const unsigned int np = data_in.points.size();
 
@@ -198,7 +198,7 @@ public:
 	
     data_out.points.resize(0);
     data_out.points.reserve(np);
-    robot_self_filter::PointT nan_point;
+    PointT nan_point;
     nan_point.x = std::numeric_limits<float>::quiet_NaN(); 
     nan_point.y = std::numeric_limits<float>::quiet_NaN();
     nan_point.z = std::numeric_limits<float>::quiet_NaN();
@@ -219,13 +219,13 @@ public:
     }
   }
 
-  virtual bool updateWithSensorFrame(const std::vector<robot_self_filter::PointCloud> & data_in, std::vector<robot_self_filter::PointCloud>& data_out, const std::string& sensor_frame)
+  virtual bool updateWithSensorFrame(const std::vector<PointCloud> & data_in, std::vector<PointCloud>& data_out, const std::string& sensor_frame)
   {
     sensor_frame_ = sensor_frame;
     return update(data_in, data_out);
   }
   
-  virtual bool update(const std::vector<robot_self_filter::PointCloud> & data_in, std::vector<robot_self_filter::PointCloud>& data_out)
+  virtual bool update(const std::vector<PointCloud> & data_in, std::vector<PointCloud>& data_out)
   {
     bool result = true;
     data_out.resize(data_in.size());
@@ -235,7 +235,7 @@ public:
     return true;
   }
 
-  robot_self_filter::SelfMask* getSelfMask() {
+  robot_self_filter::SelfMask<PointT>* getSelfMask() {
     return sm_;
   }
 
@@ -246,7 +246,7 @@ public:
 protected:
     
   tf::TransformListener tf_;
-  robot_self_filter::SelfMask* sm_;
+  robot_self_filter::SelfMask<PointT>* sm_;
   
   ros::NodeHandle nh_;
   bool invert_;
