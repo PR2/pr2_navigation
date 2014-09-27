@@ -48,13 +48,13 @@ class SelfFilter: public FilterBase <T>
 public:
 
   /** \brief Construct the filter */
-  SelfFilter(ros::NodeHandle nh) : nh_(nh) 
+  SelfFilter(ros::NodeHandle nh) : nh_(nh)
   {
     nh_.param<double>("min_sensor_dist", min_sensor_dist_, 0.01);
     double default_padding, default_scale;
     nh_.param<double>("self_see_default_padding", default_padding, .01);
     nh_.param<double>("self_see_default_scale", default_scale, 1.0);
-    
+    nh_.param<bool>("keep_organized", keep_organized_, false);
     std::vector<robot_self_filter::LinkInfo> links;	
     std::string link_names;
     
@@ -198,13 +198,24 @@ public:
 	
     data_out.points.resize(0);
     data_out.points.reserve(np);
-	
+    robot_self_filter::PointT nan_point;
+    nan_point.x = std::numeric_limits<float>::quiet_NaN(); 
+    nan_point.y = std::numeric_limits<float>::quiet_NaN();
+    nan_point.z = std::numeric_limits<float>::quiet_NaN();
     for (unsigned int i = 0 ; i < np ; ++i)
     {
       if (keep[i] == robot_self_filter::OUTSIDE)
       {
         data_out.points.push_back(data_in.points[i]);
       }
+      if (keep_organized_ && keep[i] != robot_self_filter::OUTSIDE)
+      {
+        data_out.points.push_back(nan_point);
+      }
+    }
+    if (keep_organized_) {
+      data_out.width = data_in.width;
+      data_out.height = data_in.height;
     }
   }
 
@@ -241,7 +252,7 @@ protected:
   bool invert_;
   std::string sensor_frame_;
   double min_sensor_dist_;
-    
+  bool keep_organized_;
   
 };
 

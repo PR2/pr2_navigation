@@ -41,7 +41,8 @@
 
 namespace robot_self_filter
 {
-  typedef pcl::PointCloud<pcl::PointXYZ> PointCloud;
+  typedef pcl::PointXYZ PointT;
+  typedef pcl::PointCloud<PointT> PointCloud;
 
     /** \brief The possible values of a mask computed for a point */
     enum
