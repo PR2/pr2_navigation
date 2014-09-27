@@ -54,7 +54,7 @@ public:
         li.padding = .05;
         li.scale = 1.0;
         links.push_back(li);
-	sf_ = new robot_self_filter::SelfMask(tf_, links);
+	sf_ = new robot_self_filter::SelfMask<pcl::PointXYZ>(tf_, links);
     }
 
     ~TestSelfFilter(void)
@@ -98,7 +98,7 @@ public:
 
     void run(void)
     {
-      robot_self_filter::PointCloud in;
+        pcl::PointCloud<pcl::PointXYZ> in;
 	
 	in.header.stamp = ros::Time::now().toNSec();
 	in.header.frame_id = "base_link";
@@ -147,7 +147,7 @@ protected:
     }
 
     tf::TransformListener             tf_;
-    robot_self_filter::SelfMask      *sf_;
+    robot_self_filter::SelfMask<pcl::PointXYZ>      *sf_;
     ros::Publisher                    vmPub_;
     ros::NodeHandle                   nodeHandle_;        
     int                               id_;
