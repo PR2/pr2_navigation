@@ -58,8 +58,7 @@ public:
     }
     ros::SubscriberStatusCallback connect_cb
       = boost::bind( &SelfFilter::connectionCallback, this, _1);
-    pointCloudPublisher_ = root_handle_.advertise<sensor_msgs::PointCloud2>("cloud_out", 1,
-                                                                            connect_cb, connect_cb);
+    
     if (use_rgb_) 
     {
       self_filter_rgb_->getSelfMask()->getLinkNames(frames_);
@@ -68,6 +67,8 @@ public:
     {
       self_filter_->getSelfMask()->getLinkNames(frames_);
     }
+    pointCloudPublisher_ = root_handle_.advertise<sensor_msgs::PointCloud2>("cloud_out", 1,
+                                                                            connect_cb, connect_cb);
   }
     
   ~SelfFilter(void)
@@ -109,8 +110,8 @@ private:
     else
     {
       ROS_DEBUG("Valid frames were passed in. We'll filter them.");
-      sub_.reset(new message_filters::Subscriber<sensor_msgs::PointCloud2>(root_handle_, "cloud_in", 1));
-      mn_.reset(new tf::MessageFilter<sensor_msgs::PointCloud2>(*sub_, tf_, "", 1));
+      sub_.subscribe(root_handle_, "cloud_in", 1);
+      mn_.reset(new tf::MessageFilter<sensor_msgs::PointCloud2>(sub_, tf_, "", 1));
       mn_->setTargetFrames(frames_);
       mn_->registerCallback(boost::bind(&SelfFilter::cloudCallback, this, _1));
     }
@@ -121,7 +122,7 @@ private:
       no_filter_sub_.shutdown();
     }
     else {
-      sub_->unsubscribe();
+      sub_.unsubscribe();
     }
   }
 
@@ -172,7 +173,7 @@ private:
   ros::NodeHandle                                       nh_, root_handle_;
 
   boost::shared_ptr<tf::MessageFilter<sensor_msgs::PointCloud2> >          mn_;
-  boost::shared_ptr<message_filters::Subscriber<sensor_msgs::PointCloud2> > sub_;
+  message_filters::Subscriber<sensor_msgs::PointCloud2> sub_;
 
   filters::SelfFilter<pcl::PointXYZ> *self_filter_;
   filters::SelfFilter<pcl::PointXYZRGB> *self_filter_rgb_;
