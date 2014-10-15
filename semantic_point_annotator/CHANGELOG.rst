@@ -2,8 +2,8 @@
 Changelog for package semantic_point_annotator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.23 (2014-10-15)
+-------------------
 * Updated maintainership
 * Removed unnecessary package fix
 * Contributors: TheDash
