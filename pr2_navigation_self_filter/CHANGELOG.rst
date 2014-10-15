@@ -2,8 +2,8 @@
 Changelog for package pr2_navigation_self_filter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.24 (2014-10-15)
+-------------------
 * Remove mainpage.dox
 * Contributors: TheDash
 
