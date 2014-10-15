@@ -2,6 +2,11 @@
 Changelog for package pr2_navigation_local
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove mainpage.dox
+* Contributors: TheDash
+
 0.1.23 (2014-10-15)
 -------------------
 * Updated maintainership
