@@ -2,6 +2,11 @@
 Changelog for package pr2_navigation_local
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Updated maintainership
+* Contributors: TheDash
+
 0.1.22 (2014-09-08)
 -------------------
 
