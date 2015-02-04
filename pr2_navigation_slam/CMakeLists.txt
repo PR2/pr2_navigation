@@ -2,11 +2,11 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(pr2_navigation_slam)
 
-find_package(catkin REQUIRED COMPONENTS gmapping pr2_machine move_base pr2_navigation_config pr2_move_base topic_tools joint_trajectory_generator pr2_tuck_arms_action)
+find_package(catkin REQUIRED COMPONENTS)
 
 catkin_package(
     DEPENDS 
-    CATKIN-DEPENDS gmapping pr2_machine move_base pr2_navigation_config pr2_move_base topic_tools joint_trajectory_generator pr2_tuck_arms_action
+    CATKIN-DEPENDS
     INCLUDE_DIRS
     LIBRARIES
 )
