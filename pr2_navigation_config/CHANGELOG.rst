@@ -2,6 +2,9 @@
 Changelog for package pr2_navigation_config
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.24 (2014-10-15)
 -------------------
 
