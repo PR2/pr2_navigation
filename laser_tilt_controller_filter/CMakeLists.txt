@@ -4,11 +4,7 @@ project(laser_tilt_controller_filter)
 
 find_package(catkin REQUIRED COMPONENTS filters sensor_msgs roscpp pluginlib pr2_msgs)
 
-add_library(laser_tilt_controller_filter src/laser_tilt_controller_filter.cpp)
 
-find_package(Boost REQUIRED COMPONENTS thread)
-include_directories(include ${Boost_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
-target_link_libraries(laser_tilt_controller_filter ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 
 catkin_package(
     DEPENDS 
@@ -16,6 +12,13 @@ catkin_package(
     INCLUDE_DIRS include
     LIBRARIES laser_tilt_controller_filter
 )
+
+
+add_library(laser_tilt_controller_filter src/laser_tilt_controller_filter.cpp)
+
+find_package(Boost REQUIRED COMPONENTS thread)
+include_directories(include ${Boost_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
+target_link_libraries(laser_tilt_controller_filter ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 
 install(DIRECTORY include/${PROJECT_NAME}/
    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
