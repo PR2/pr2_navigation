@@ -2,6 +2,12 @@
 Changelog for package pr2_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.26 (2015-02-10)
+-------------------
+* Merge branch 'hydro-devel' of https://github.com/PR2/pr2_navigation into hydro-devel
+* Updated maintanership
+* Contributors: TheDash
+
 0.1.25 (2015-02-06)
 -------------------
 

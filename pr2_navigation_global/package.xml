@@ -1,6 +1,6 @@
 <package>
   <name>pr2_navigation_global</name>
-  <version>0.1.25</version>
+  <version>0.1.26</version>
   <description>This package holds XML files for running the</description>
   <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
 

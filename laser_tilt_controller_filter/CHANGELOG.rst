@@ -2,6 +2,9 @@
 Changelog for package laser_tilt_controller_filter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.26 (2015-02-10)
+-------------------
+
 0.1.25 (2015-02-06)
 -------------------
 * Add library now called after catkin_package

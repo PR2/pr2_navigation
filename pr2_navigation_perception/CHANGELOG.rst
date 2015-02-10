@@ -2,6 +2,11 @@
 Changelog for package pr2_navigation_perception
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.26 (2015-02-10)
+-------------------
+* Updated maintanership
+* Contributors: TheDash
+
 0.1.25 (2015-02-06)
 -------------------
 
