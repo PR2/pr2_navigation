@@ -12,7 +12,7 @@ pkg_check_modules(bullet REQUIRED bullet)
 find_package( PCL REQUIRED )
 add_definitions(${PCL_DEFINITIONS})
 
-find_package(catkin REQUIRED COMPONENTS roscpp tf filters sensor_msgs urdf resource_retriever visualization_msgs pcl_ros)
+find_package(catkin REQUIRED COMPONENTS roscpp tf filters sensor_msgs urdf roscpp resource_retriever visualization_msgs pcl_ros)
 
 catkin_package(
     DEPENDS bullet
