@@ -12,14 +12,6 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <build_depend>move_base</build_depend>
-  <build_depend>pr2_machine</build_depend>
-  <build_depend>pr2_navigation_config</build_depend>
-  <build_depend>pr2_move_base</build_depend>
-  <build_depend>topic_tools</build_depend>
-  <build_depend>joint_trajectory_generator</build_depend>
-  <build_depend>pr2_tuck_arms_action</build_depend>
-
   <run_depend>move_base</run_depend>
   <run_depend>pr2_machine</run_depend>
   <run_depend>pr2_navigation_config</run_depend>

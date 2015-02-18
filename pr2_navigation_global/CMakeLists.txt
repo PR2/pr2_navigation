@@ -2,11 +2,11 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(pr2_navigation_global)
 
-find_package(catkin REQUIRED COMPONENTS move_base amcl pr2_machine pr2_navigation_config pr2_move_base topic_tools joint_trajectory_generator pr2_tuck_arms_action)
+find_package(catkin REQUIRED COMPONENTS)
 
 catkin_package(
     DEPENDS 
-    CATKIN-DEPENDS move_base amcl pr2_machine pr2_navigation_config pr2_move_base topic_tools joint_trajectory_generator pr2_tuck_arms_action
+    CATKIN-DEPENDS
     INCLUDE_DIRS
     LIBRARIES
 )
