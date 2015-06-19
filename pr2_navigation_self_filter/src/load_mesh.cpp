@@ -37,12 +37,283 @@
 #include <algorithm>
 #include <set>
 #include "pr2_navigation_self_filter/shapes.h"
+#include <resource_retriever/retriever.h>
+#include <ros/assert.h>
+#include <tinyxml.h>
+#if defined(ASSIMP_UNIFIED_HEADER_NAMES)
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <assimp/IOStream.hpp>
+#include <assimp/IOSystem.hpp>
+#else
+#include <assimp/assimp.hpp>
+#include <assimp/aiScene.h>
+#include <assimp/aiPostProcess.h>
+#include <assimp/IOStream.h>
+#include <assimp/IOSystem.h>
+#endif
+
 
 // \author Ioan Sucan ;  based on stl_to_mesh 
 
 namespace shapes
 {
 
+    // Assimp wrappers
+    class ResourceIOStream : public Assimp::IOStream
+    {
+    public:
+	ResourceIOStream(const resource_retriever::MemoryResource& res)
+	: res_(res)
+	, pos_(res.data.get())
+	{}
+
+	~ResourceIOStream()
+	{}
+
+	size_t Read(void* buffer, size_t size, size_t count)
+	{
+	  size_t to_read = size * count;
+	  if (pos_ + to_read > res_.data.get() + res_.size)
+	  {
+	    to_read = res_.size - (pos_ - res_.data.get());
+	  }
+
+	  memcpy(buffer, pos_, to_read);
+	  pos_ += to_read;
+
+	  return to_read;
+	}
+
+	size_t Write( const void* buffer, size_t size, size_t count) { ROS_BREAK(); return 0; }
+
+	aiReturn Seek( size_t offset, aiOrigin origin)
+	{
+	  uint8_t* new_pos = 0;
+	  switch (origin)
+	  {
+	  case aiOrigin_SET:
+	    new_pos = res_.data.get() + offset;
+	    break;
+	  case aiOrigin_CUR:
+	    new_pos = pos_ + offset; // TODO is this right?  can offset really not be negative
+	    break;
+	  case aiOrigin_END:
+	    new_pos = res_.data.get() + res_.size - offset; // TODO is this right?
+	    break;
+	  default:
+	    ROS_BREAK();
+	  }
+
+	  if (new_pos < res_.data.get() || new_pos > res_.data.get() + res_.size)
+	  {
+	    return aiReturn_FAILURE;
+	  }
+
+	  pos_ = new_pos;
+	  return aiReturn_SUCCESS;
+	}
+
+	size_t Tell() const
+	{
+	  return pos_ - res_.data.get();
+	}
+
+	size_t FileSize() const
+	{
+	  return res_.size;
+	}
+
+	void Flush() {}
+
+    private:
+	resource_retriever::MemoryResource res_;
+	uint8_t* pos_;
+    };
+
+  
+    class ResourceIOSystem : public Assimp::IOSystem
+    {
+    public:
+      ResourceIOSystem()
+      {
+      }
+
+      ~ResourceIOSystem()
+      {
+      }
+
+      // Check whether a specific file exists
+      bool Exists(const char* file) const
+      {
+	// Ugly -- two retrievals where there should be one (Exists + Open)
+	// resource_retriever needs a way of checking for existence
+	// TODO: cache this
+	resource_retriever::MemoryResource res;
+	try
+	{
+	  res = retriever_.get(file);
+	}
+	catch (resource_retriever::Exception& e)
+	{
+	  return false;
+	}
+
+	return true;
+      }
+
+      // Get the path delimiter character we'd like to see
+      char getOsSeparator() const
+      {
+	return '/';
+      }
+
+      // ... and finally a method to open a custom stream
+      Assimp::IOStream* Open(const char* file, const char* mode = "rb")
+      {
+	// Ugly -- two retrievals where there should be one (Exists + Open)
+	// resource_retriever needs a way of checking for existence
+	resource_retriever::MemoryResource res;
+	try
+	{
+	  res = retriever_.get(file);
+	}
+	catch (resource_retriever::Exception& e)
+	{
+	  return 0;
+	}
+
+	return new ResourceIOStream(res);
+      }
+
+      void Close(Assimp::IOStream* stream);
+
+    private:
+      mutable resource_retriever::Retriever retriever_;
+    };
+
+    void ResourceIOSystem::Close(Assimp::IOStream* stream)
+    {
+      delete stream;
+    }
+
+    float getMeshUnitRescale(const std::string& resource_path)
+    {
+      static std::map<std::string, float> rescale_cache;
+
+      // Try to read unit to meter conversion ratio from mesh. Only valid in Collada XML formats. 
+      TiXmlDocument xmlDoc;
+      float unit_scale(1.0);
+      resource_retriever::Retriever retriever;
+      resource_retriever::MemoryResource res;
+      try
+      {
+	res = retriever.get(resource_path);
+      }
+      catch (resource_retriever::Exception& e)
+      {
+	ROS_ERROR("%s", e.what());
+	return unit_scale;
+      }
+  
+      if (res.size == 0)
+      {
+	return unit_scale;
+      }
+
+
+      // Use the resource retriever to get the data.
+      const char * data = reinterpret_cast<const char * > (res.data.get());
+      xmlDoc.Parse(data);
+
+      // Find the appropriate element if it exists
+      if(!xmlDoc.Error())
+      {
+	TiXmlElement * colladaXml = xmlDoc.FirstChildElement("COLLADA");
+	if(colladaXml)
+	{
+	  TiXmlElement *assetXml = colladaXml->FirstChildElement("asset");
+	  if(assetXml)
+	  {
+	    TiXmlElement *unitXml = assetXml->FirstChildElement("unit");
+	    if (unitXml && unitXml->Attribute("meter"))
+	    {
+	      // Failing to convert leaves unit_scale as the default.
+	      if(unitXml->QueryFloatAttribute("meter", &unit_scale) != 0)
+		ROS_WARN_STREAM("getMeshUnitRescale::Failed to convert unit element meter attribute to determine scaling. unit element: "
+				<< *unitXml);
+	    }
+	  }
+	}
+      }
+      return unit_scale;
+    }
+
+    std::vector<tf::Vector3> getVerticesFromAssimpNode(const aiScene* scene, const aiNode* node, const float scale)
+    {
+	std::vector<tf::Vector3> vertices;
+	if (!node)
+	{
+	  return vertices;
+	}
+	
+	aiMatrix4x4 transform = node->mTransformation;
+	aiNode *pnode = node->mParent;
+	while (pnode)
+	{
+	  // Don't convert to y-up orientation, which is what the root node in
+	  // Assimp does
+	  if (pnode->mParent != NULL)
+	    transform = pnode->mTransformation * transform;
+	  pnode = pnode->mParent;
+	}
+	
+	aiMatrix3x3 rotation(transform);
+	aiMatrix3x3 inverse_transpose_rotation(rotation);
+	inverse_transpose_rotation.Inverse();
+	inverse_transpose_rotation.Transpose();
+	
+	for (uint32_t i = 0; i < node->mNumMeshes; i++)
+	{
+	  aiMesh* input_mesh = scene->mMeshes[node->mMeshes[i]];
+	  // Add the vertices
+	  for (uint32_t j = 0; j < input_mesh->mNumVertices; j++)
+	  {
+	    aiVector3D p = input_mesh->mVertices[j];
+	    p *= transform;
+	    p *= scale;
+	    tf::Vector3 v(p.x, p.y, p.z);
+	    vertices.push_back(v);
+	  }
+	}
+	
+	for (uint32_t i=0; i < node->mNumChildren; ++i)
+	{
+	  std::vector<tf::Vector3> sub_vertices = getVerticesFromAssimpNode(scene,node->mChildren[i], scale);
+	  // Add vertices
+	  for (size_t j = 0; j < sub_vertices.size(); j++) {
+	    vertices.push_back(sub_vertices[j]);
+	  }
+	}
+	return vertices;
+    }
+  
+    shapes::Mesh* meshFromAssimpScene(const std::string& name, const aiScene* scene)
+    {
+      if (!scene->HasMeshes())
+      {
+	ROS_ERROR("No meshes found in file [%s]", name.c_str());
+	return NULL;
+      }
+      
+      float scale = getMeshUnitRescale(name);
+
+      std::vector<tf::Vector3> vertices = getVerticesFromAssimpNode(scene, scene->mRootNode, scale);
+      
+      return createMeshFromVertices(vertices);
+    }
+  
     namespace detail
     {
 	struct myVertex
@@ -245,7 +516,21 @@ namespace shapes
 	
 	return NULL;
     }
-    
+
+    shapes::Mesh* createMeshFromBinaryDAE(const char* filename)
+    {
+      std::string resource_path(filename);
+      Assimp::Importer importer;
+      importer.SetIOHandler(new ResourceIOSystem());
+      const aiScene* scene = importer.ReadFile(resource_path, aiProcess_SortByPType|aiProcess_GenNormals|aiProcess_Triangulate|aiProcess_GenUVCoords|aiProcess_FlipUVs);
+      if (!scene)
+      {
+        ROS_ERROR("Could not load resource [%s]: %s", resource_path.c_str(), importer.GetErrorString());
+        return NULL;
+      }
+      return meshFromAssimpScene(resource_path, scene);
+    }
+  
     shapes::Mesh* createMeshFromBinaryStl(const char *filename)
     {
 	FILE* input = fopen(filename, "r");

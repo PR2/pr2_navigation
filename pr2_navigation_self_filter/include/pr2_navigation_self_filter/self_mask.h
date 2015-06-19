@@ -36,6 +36,7 @@
 #include <pr2_navigation_self_filter/bodies.h>
 #include <tf/transform_listener.h>
 #include <boost/bind.hpp>
+#include <boost/filesystem.hpp>
 #include <string>
 #include <vector>
 
@@ -111,7 +112,14 @@ struct LinkInfo
 			    ROS_WARN("Retrieved empty mesh for resource '%s'", mesh->filename.c_str());
 			else
 			{
-			    result = shapes::createMeshFromBinaryStlData(reinterpret_cast<char*>(res.data.get()), res.size);
+			    boost::filesystem::path model_path(mesh->filename);
+			    std::string ext = model_path.extension().string();
+			    if (ext == ".dae" || ext == ".DAE") {
+			      result = shapes::createMeshFromBinaryDAE(mesh->filename.c_str());
+			    }
+			    else {
+			      result = shapes::createMeshFromBinaryStlData(reinterpret_cast<char*>(res.data.get()), res.size);
+			    }
 			    if (result == NULL)
 				ROS_ERROR("Failed to load mesh '%s'", mesh->filename.c_str());
 			}

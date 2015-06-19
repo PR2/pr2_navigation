@@ -241,6 +241,11 @@ namespace shapes
 	recomputed and repeating vertices are identified. */
     Mesh* createMeshFromBinaryStlData(const char *data, unsigned int size);
 
+    /** \brief Load a mesh from a binary DAE file. Normals are
+	recomputed and repeating vertices are identified. */
+    Mesh* createMeshFromBinaryDAE(const char* filename);
+
+  
     /** \brief Create a copy of a shape */
     Shape* cloneShape(const Shape *shape);
 
