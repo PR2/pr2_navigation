@@ -1,6 +1,6 @@
 <package>
   <name>pr2_navigation_config</name>
-  <version>0.1.26</version>
+  <version>0.1.27</version>
   <description>This package holds common configuration files for running the</description>
   <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
 

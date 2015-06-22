@@ -1,6 +1,6 @@
 <package>
   <name>pr2_navigation</name>
-  <version>0.1.26</version>
+  <version>0.1.27</version>
   <description>The pr2_navigation stack holds common configuration options for running the</description>
   <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
 
