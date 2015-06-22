@@ -2,6 +2,12 @@
 Changelog for package pr2_navigation_self_filter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Support collada dae mesh file as well as stl files
+* Install self_filter binary to the package_bin directory
+* Contributors: Ryohei Ueda, aginika
+
 0.1.26 (2015-02-10)
 -------------------
 * Updated maintanership

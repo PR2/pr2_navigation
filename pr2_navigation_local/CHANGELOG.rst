@@ -2,6 +2,13 @@
 Changelog for package pr2_navigation_local
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge pull request `#16 <https://github.com/pr2/pr2_navigation/issues/16>`_ from k-okada/remove_build_depend
+  we do not need any package during build process
+* we do not need any package during build process
+* Contributors: Devon Ash, Kei Okada
+
 0.1.26 (2015-02-10)
 -------------------
 
