@@ -12,7 +12,7 @@
   <rosparam command="load" file="$(find pr2_navigation_perception)/config/point_cloud_footprint_filter.yaml" />
 </node>
 
-<node pkg="laser_filters" type="scan_to_scan_filter_chain" name="interpolate_missing_tilt_laser_data_filter">
+<node pkg="laser_filters" type="scan_to_scan_filter_chain" name="interpolate_missing_tilt_laser_data_filter" machine="c2">
   <rosparam command="load" file="$(find pr2_navigation_perception)/config/laser_interpolation.yaml" />
   <remap from="scan" to="tilt_scan" />
   <remap from="scan_filtered" to="tilt_scan_interpolated" />
