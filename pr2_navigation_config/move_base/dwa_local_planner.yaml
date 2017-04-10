@@ -33,8 +33,6 @@ vx_samples: 3
 vy_samples: 10
 vtheta_samples: 20
 
-sim_period: 0.1
-
 xy_goal_tolerance: 0.2
 yaw_goal_tolerance: 0.17
 
