@@ -22,7 +22,7 @@ catkin_package(
 
 
 add_executable(sac_inc_ground_removal_node src/sac_inc_ground_removal_standalone.cpp src/sac/sac.cpp src/sac/ransac.cpp src/sac/sac_model.cpp src/sac/sac_model_line.cpp)
-include_directories(include/${PROJECT_NAME} ${Boost_INCLUDE_DIRS} ${PC_EIGEN_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS}  ${caktin_INCLUDE_DIRS})
+include_directories(include/${PROJECT_NAME} ${Boost_INCLUDE_DIRS} ${PC_EIGEN_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS}  ${catkin_INCLUDE_DIRS})
 target_link_libraries(sac_inc_ground_removal_node ${Boost_LIBRARIES} ${PCL_LIBRARIES} ${catkin_LIBRARIES})
 
 install(DIRECTORY include/${PROJECT_NAME}/
