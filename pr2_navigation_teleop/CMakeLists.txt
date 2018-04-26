@@ -6,7 +6,7 @@ find_package(catkin REQUIRED COMPONENTS pr2_teleop pr2_machine topic_tools)
 
 catkin_package(
     DEPENDS 
-    CATKIN-DEPENDS pr2_teleop pr2_machine topic_tools
+    CATKIN_DEPENDS pr2_teleop pr2_machine topic_tools
     INCLUDE_DIRS
     LIBRARIES
 )

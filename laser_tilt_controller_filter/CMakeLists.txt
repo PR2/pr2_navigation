@@ -8,7 +8,7 @@ find_package(catkin REQUIRED COMPONENTS filters sensor_msgs roscpp pluginlib pr2
 
 catkin_package(
     DEPENDS 
-    CATKIN-DEPENDS filters sensor_msgs roscpp pluginlib pr2_msgs
+    CATKIN_DEPENDS filters sensor_msgs roscpp pluginlib pr2_msgs
     INCLUDE_DIRS include
     LIBRARIES laser_tilt_controller_filter
 )

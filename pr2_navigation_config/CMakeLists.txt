@@ -6,7 +6,7 @@ find_package(catkin REQUIRED COMPONENTS move_base)
 
 catkin_package(
     DEPENDS 
-    CATKIN-DEPENDS move_base
+    CATKIN_DEPENDS move_base
     INCLUDE_DIRS
     LIBRARIES
 )
