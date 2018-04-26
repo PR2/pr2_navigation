@@ -15,7 +15,7 @@ Forthcoming
 * sac_inc_ground_removal_node instalation location fixed
   sac_inc_ground_removal_node would be installed in "/opt/ros/indigo/bin/" directory and roslaunch couldn't find it.
   now sac_inc_ground_removal_node will go into "/opt/ros/indigo/bin/sac_inc_ground_removal_node" directory.
-* Contributors: David Feil-Seifer, Devon Ash, Gheorghe Lisca, Kei Okada, Michael Görner
+* Contributors: David Feil-Seifer, Devon Ash, Gheorghe Lisca, Kei Okada, Michael Gorner
 
 0.1.27 (2015-06-22)
 -------------------
