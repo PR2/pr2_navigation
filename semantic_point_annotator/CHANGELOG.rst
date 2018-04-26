@@ -2,8 +2,8 @@
 Changelog for package semantic_point_annotator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.28 (2018-04-26)
+-------------------
 * updated maintainer
 * fixed CMake files for compile in kinetic
 * Merge pull request `#34 <https://github.com/PR2-prime/pr2_navigation/issues/34>`_ from PR2/pr-fix-catkin-includes

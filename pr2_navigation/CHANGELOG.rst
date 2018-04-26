@@ -2,8 +2,8 @@
 Changelog for package pr2_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.28 (2018-04-26)
+-------------------
 * updated changelogs
 * updated maintainer
 * Update package.xml
