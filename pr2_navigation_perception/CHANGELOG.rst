@@ -2,8 +2,17 @@
 Changelog for package pr2_navigation_perception
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.28 (2018-04-26)
+-------------------
+* updated maintainer
+* Merge pull request `#31 <https://github.com/PR2-prime/pr2_navigation/issues/31>`_ from mikaelarguedas/update_pluginlib_macros
+  update to use non deprecated pluginlib macro
+* update to use non deprecated pluginlib macro
+* Contributors: Austin, David Feil-Seifer, Mikael Arguedas
+
 Forthcoming
 -----------
+* updated changelogs
 * updated maintainer
 * Merge pull request `#31 <https://github.com/PR2-prime/pr2_navigation/issues/31>`_ from mikaelarguedas/update_pluginlib_macros
   update to use non deprecated pluginlib macro

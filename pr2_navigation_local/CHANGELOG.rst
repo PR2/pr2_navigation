@@ -2,8 +2,15 @@
 Changelog for package pr2_navigation_local
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.28 (2018-04-26)
+-------------------
+* updated maintainer
+* fixed CMake files for compile in kinetic
+* Contributors: David Feil-Seifer
+
 Forthcoming
 -----------
+* updated changelogs
 * updated maintainer
 * fixed CMake files for compile in kinetic
 * Contributors: David Feil-Seifer

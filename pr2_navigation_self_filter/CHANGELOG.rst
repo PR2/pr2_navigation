@@ -4,6 +4,16 @@ Changelog for package pr2_navigation_self_filter
 
 Forthcoming
 -----------
+* updated changelogs
+* updated maintainer
+* fixed CMake files for compile in kinetic
+* Merge pull request `#24 <https://github.com/PR2-prime/pr2_navigation/issues/24>`_ from wkentaro/self_filter-timestamp
+  Set correct timestamp for self filtered cloud
+* Set correct timestamp for self filtered cloud
+  This is needed because pcl drops some value of timestamp.
+  So pcl::fromROSMsg and pcl::toROSMsg does not work to get correct timestamp.
+* Contributors: David Feil-Seifer, Devon Ash, Kentaro Wada
+
 * updated maintainer
 * fixed CMake files for compile in kinetic
 * Merge pull request `#24 <https://github.com/PR2-prime/pr2_navigation/issues/24>`_ from wkentaro/self_filter-timestamp
