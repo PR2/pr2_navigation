@@ -2,6 +2,17 @@
 Changelog for package pr2_navigation_self_filter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* updated maintainer
+* fixed CMake files for compile in kinetic
+* Merge pull request `#24 <https://github.com/PR2-prime/pr2_navigation/issues/24>`_ from wkentaro/self_filter-timestamp
+  Set correct timestamp for self filtered cloud
+* Set correct timestamp for self filtered cloud
+  This is needed because pcl drops some value of timestamp.
+  So pcl::fromROSMsg and pcl::toROSMsg does not work to get correct timestamp.
+* Contributors: David Feil-Seifer, Devon Ash, Kentaro Wada
+
 0.1.27 (2015-06-22)
 -------------------
 * Support collada dae mesh file as well as stl files

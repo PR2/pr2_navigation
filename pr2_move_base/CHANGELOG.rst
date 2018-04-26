@@ -2,6 +2,12 @@
 Changelog for package pr2_move_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* updated maintainer
+* fixed CMake files for compile in kinetic
+* Contributors: David Feil-Seifer
+
 0.1.27 (2015-06-22)
 -------------------
 

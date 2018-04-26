@@ -2,6 +2,12 @@
 Changelog for package pr2_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* updated maintainer
+* Update package.xml
+* Contributors: David Feil-Seifer, Devon Ash
+
 0.1.27 (2015-06-22)
 -------------------
 
