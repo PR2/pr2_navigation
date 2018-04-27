@@ -6,7 +6,7 @@ find_package(catkin REQUIRED COMPONENTS move_base_msgs pr2_msgs actionlib action
 
 catkin_package(
     DEPENDS 
-    CATKIN-DEPENDS move_base_msgs pr2_msgs actionlib actionlib_msgs rospy dynamic_reconfigure pr2_controllers_msgs pr2_common_action_msgs
+    CATKIN_DEPENDS move_base_msgs pr2_msgs actionlib actionlib_msgs rospy dynamic_reconfigure pr2_controllers_msgs pr2_common_action_msgs
     INCLUDE_DIRS
     LIBRARIES
 )
