@@ -1,6 +1,6 @@
 <package>
   <name>pr2_move_base</name>
-  <version>0.1.27</version>
+  <version>0.1.28</version>
   <description>pr2_move_base</description>
   <maintainer email="dave@cse.unr.edu">David Feil-Seifer</maintainer>
 
