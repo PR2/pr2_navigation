@@ -11,6 +11,7 @@ pkg_check_modules(bullet REQUIRED bullet)
 
 find_package( PCL REQUIRED )
 add_definitions(${PCL_DEFINITIONS})
+add_compile_options(-std=c++11)
 
 find_package(ASSIMP QUIET)
 if (NOT ASSIMP_FOUND)
