@@ -11,7 +11,8 @@ pkg_check_modules(bullet REQUIRED bullet)
 
 find_package( PCL REQUIRED )
 add_definitions(${PCL_DEFINITIONS})
-add_compile_options(-std=c++11)
+
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
 find_package(ASSIMP QUIET)
 if (NOT ASSIMP_FOUND)
