@@ -1,6 +1,6 @@
 <package>
   <name>pr2_navigation_self_filter</name>
-  <version>0.1.27</version>
+  <version>0.1.28</version>
   <description>Filters the robot's body out of point clouds.</description>
   <maintainer email="dave@cse.unr.edu">David Feil-Seifer</maintainer>
 

@@ -2,6 +2,23 @@
 Changelog for package semantic_point_annotator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.28 (2018-04-27)
+-------------------
+* Merge pull request `#36 <https://github.com/pr2/pr2_navigation/issues/36>`_ from k-okada/fix_catkin_depends
+  fixed CMake files for compile in kinetic
+* updated maintainer
+* fixed CMake files for compile in kinetic
+* Merge pull request `#34 <https://github.com/pr2/pr2_navigation/issues/34>`_ from PR2/pr-fix-catkin-includes
+  fix typo in catkin_INCLUDE_DIRS
+* fix typo in catkin_INCLUDE_DIRS
+  Fixes `#33 <https://github.com/pr2/pr2_navigation/issues/33>`_
+* Merge pull request `#25 <https://github.com/pr2/pr2_navigation/issues/25>`_ from gheorghelisca/patch-1
+  sac_inc_ground_removal_node instalation location fixed
+* sac_inc_ground_removal_node instalation location fixed
+  sac_inc_ground_removal_node would be installed in "/opt/ros/indigo/bin/" directory and roslaunch couldn't find it.
+  now sac_inc_ground_removal_node will go into "/opt/ros/indigo/bin/sac_inc_ground_removal_node" directory.
+* Contributors: David Feil-Seifer, Devon Ash, Gheorghe Lisca, Kei Okada, Michael Görner
+
 0.1.27 (2015-06-22)
 -------------------
 

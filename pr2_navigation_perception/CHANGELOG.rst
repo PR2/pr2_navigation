@@ -2,6 +2,31 @@
 Changelog for package pr2_navigation_perception
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.28 (2018-04-27)
+-------------------
+* Merge pull request `#36 <https://github.com/pr2/pr2_navigation/issues/36>`_ from k-okada/fix_catkin_depends
+  fixed CMake files for compile in kinetic
+* updated maintainer
+* Merge pull request `#27 <https://github.com/pr2/pr2_navigation/issues/27>`_ from v4hn/pr-hydro-fix-broken-filters-plugin
+  specify prefix for filter plugins
+* Merge pull request `#35 <https://github.com/pr2/pr2_navigation/issues/35>`_ from k-okada/hydro-devel
+  use `arg` for all parameters for ground filtering
+* fix layout
+* enable to use args for all params
+* Merge pull request `#28 <https://github.com/pr2/pr2_navigation/issues/28>`_ from v4hn/pr-hydro-filter-machine
+  spawn laser filter on c2 (where the rest of the pipeline runs)
+* Merge pull request `#31 <https://github.com/pr2/pr2_navigation/issues/31>`_ from mikaelarguedas/update_pluginlib_macros
+  update to use non deprecated pluginlib macro
+* update to use non deprecated pluginlib macro
+* spawn laser filter on c2 (where the rest of the pipeline runs)
+  Without this, all tilt laserscans are sent back and forth between
+  c1 and c2 for no reason, adding to the general delays...
+* specify prefix for filter plugins
+  The missing prefix has hazardous consequences due
+  to a series of unfortunate events involving the filters and the
+  laser_filters package..
+* Contributors: Austin, David Feil-Seifer, Kei Okada, Mikael Arguedas, v4hn
+
 0.1.27 (2015-06-22)
 -------------------
 

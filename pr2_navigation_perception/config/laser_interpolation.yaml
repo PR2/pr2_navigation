@@ -1,3 +1,3 @@
 scan_filter_chain:
 - name: interpolation
-  type: InterpolationFilter
+  type: laser_filters/InterpolationFilter
