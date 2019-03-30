@@ -14,7 +14,7 @@ find_package( PCL REQUIRED )
 add_definitions(${PCL_DEFINITIONS})
 
 catkin_package(
-    DEPENDS  eigen
+    DEPENDS  #eigen
     CATKIN_DEPENDS roscpp tf pcl_ros
     INCLUDE_DIRS include
     LIBRARIES
