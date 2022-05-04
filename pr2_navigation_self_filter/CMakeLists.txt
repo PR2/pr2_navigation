@@ -4,7 +4,7 @@ project(pr2_navigation_self_filter)
 
 find_package(PkgConfig REQUIRED)
 
-find_package(Boost REQUIRED COMPONENTS signals)
+find_package(Boost REQUIRED)
 
 set(bullet_FOUND 0)
 pkg_check_modules(bullet REQUIRED bullet)
@@ -12,7 +12,9 @@ pkg_check_modules(bullet REQUIRED bullet)
 find_package( PCL REQUIRED )
 add_definitions(${PCL_DEFINITIONS})
 
-set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+if("$ENV{ROS_DISTRO}" STRLESS "melodic")
+  set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+endif()
 
 find_package(ASSIMP QUIET)
 if (NOT ASSIMP_FOUND)

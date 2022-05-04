@@ -6,7 +6,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp tf pcl_ros)
 
 find_package(PkgConfig)
 
-find_package(Boost REQUIRED COMPONENTS signals)
+find_package(Boost REQUIRED)
 
 add_definitions(${PC_EIGEN_CFLAGS_OTHER})
 
