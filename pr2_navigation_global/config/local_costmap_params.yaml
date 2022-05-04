@@ -1,6 +1,6 @@
 local_costmap:
   #Independent settings for the local costmap
-  publish_voxel_map: true
+  publish_voxel_map: false
   global_frame: odom_combined
   robot_base_frame: base_footprint
   update_frequency: 5.0
