@@ -64,7 +64,7 @@ def set_tilt_profile(position, time_from_start):
     cmd.max_acceleration = 30
     try:
         tilt_profile_client.call(cmd)
-    except rospy.ServiceException, e:
+    except rospy.ServiceException as e:
         rospy.logerr("Couldn't set the profile on the laser. Exception %s" % e)
         return False
     return True
@@ -90,7 +90,7 @@ def configure_laser():
     #TODO: remove hack to get things working in gazebo
     try: 
         rospy.wait_for_service('tilt_hokuyo_node/set_parameters', 1.0)
-    except rospy.exceptions.ROSException, e:
+    except rospy.exceptions.ROSException as e:
         rospy.logerr("Couldn't set parameters %s" % e)
         return
     #end TODO
@@ -106,7 +106,7 @@ def restore_laser():
     #TODO: remove hack to get things working in gazebo
     try: 
         rospy.wait_for_service('tilt_hokuyo_node/set_parameters', 1.0)
-    except rospy.exceptions.ROSException, e:
+    except rospy.exceptions.ROSException as e:
         rospy.logerr("Couldn't set the profile on the laser. Exception %s" % e)
         return
     #end TODO
