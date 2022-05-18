@@ -2,6 +2,15 @@
 Changelog for package pr2_navigation_global
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* do not publish voxelmap (`#43 <https://github.com/pr2/pr2_navigation/issues/43>`_)
+  This saves some cycles of the memcpy to the message
+  and thus frees some resources in move_base.
+* updated maintainer
+* fixed CMake files for compile in kinetic
+* Contributors: Dave Feil-Seifer, Michael Görner
+
 0.1.28 (2018-04-27)
 -------------------
 * Merge pull request `#36 <https://github.com/pr2/pr2_navigation/issues/36>`_ from k-okada/fix_catkin_depends

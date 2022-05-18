@@ -2,6 +2,18 @@
 Changelog for package semantic_point_annotator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* fix build in noetic (`#44 <https://github.com/pr2/pr2_navigation/issues/44>`_)
+  I'm not claiming that any of these packages work as they should on
+  noetic. Claiming they worked on kinetic might be a stretch.
+* updated CMakeLists.txt to fix CMake warnings and compile warnigns causing unstable build: (`#38 <https://github.com/pr2/pr2_navigation/issues/38>`_)
+  * removed eigen dependency from semantic_point_aggregator
+  * added c++11 compile option to pr2_navigation_self_filter
+  * updated maintainer
+
+* Contributors: David Feil-Seifer, Michael Görner
+
 0.1.28 (2018-04-27)
 -------------------
 * Merge pull request `#36 <https://github.com/pr2/pr2_navigation/issues/36>`_ from k-okada/fix_catkin_depends

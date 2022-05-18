@@ -2,6 +2,17 @@
 Changelog for package pr2_move_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* update .travis.yml (`#45 <https://github.com/pr2/pr2_navigation/issues/45>`_)
+
+  * 2to3 -w -f except .
+
+* updated maintainer
+* fixed CMake files for compile in kinetic
+
+* Contributors: David Feil-Seifer, Kei Okada, Michael Görner
+
 0.1.28 (2018-04-27)
 -------------------
 * Merge pull request `#36 <https://github.com/pr2/pr2_navigation/issues/36>`_ from k-okada/fix_catkin_depends

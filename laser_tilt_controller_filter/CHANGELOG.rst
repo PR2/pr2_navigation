@@ -2,6 +2,12 @@
 Changelog for package laser_tilt_controller_filter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* updated maintainer
+* fixed CMake files for compile in kinetic
+* Contributors: Dave Feil-Seifer
+
 0.1.28 (2018-04-27)
 -------------------
 * Merge pull request `#36 <https://github.com/pr2/pr2_navigation/issues/36>`_ from k-okada/fix_catkin_depends
