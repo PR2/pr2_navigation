@@ -2,8 +2,8 @@
 Changelog for package semantic_point_annotator
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2022-05-18)
+------------------
 * fix build in noetic (`#44 <https://github.com/pr2/pr2_navigation/issues/44>`_)
   I'm not claiming that any of these packages work as they should on
   noetic. Claiming they worked on kinetic might be a stretch.

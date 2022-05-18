@@ -1,6 +1,6 @@
 <package>
   <name>laser_tilt_controller_filter</name>
-  <version>0.1.28</version>
+  <version>0.2.0</version>
   <description>laser_tilt_controller_filter</description>
   <maintainer email="dave@cse.unr.edu">David Feil-Seifer</maintainer>
 

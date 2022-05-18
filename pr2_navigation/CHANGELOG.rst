@@ -2,8 +2,8 @@
 Changelog for package pr2_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2022-05-18)
+------------------
 * updated maintainer
 * Contributors: Dave Feil-Seifer
 

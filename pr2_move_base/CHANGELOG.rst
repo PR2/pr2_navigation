@@ -2,8 +2,8 @@
 Changelog for package pr2_move_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2022-05-18)
+------------------
 * update .travis.yml (`#45 <https://github.com/pr2/pr2_navigation/issues/45>`_)
 
   * 2to3 -w -f except .

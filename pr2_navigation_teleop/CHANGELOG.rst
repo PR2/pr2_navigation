@@ -2,8 +2,8 @@
 Changelog for package pr2_navigation_teleop
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2022-05-18)
+------------------
 * updated maintainer
 * fixed CMake files for compile in kinetic
 * Contributors: Dave Feil-Seifer

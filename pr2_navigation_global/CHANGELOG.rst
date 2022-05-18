@@ -2,8 +2,8 @@
 Changelog for package pr2_navigation_global
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2022-05-18)
+------------------
 * do not publish voxelmap (`#43 <https://github.com/pr2/pr2_navigation/issues/43>`_)
   This saves some cycles of the memcpy to the message
   and thus frees some resources in move_base.

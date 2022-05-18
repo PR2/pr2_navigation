@@ -1,6 +1,6 @@
 <package>
   <name>pr2_navigation</name>
-  <version>0.1.28</version>
+  <version>0.2.0</version>
   <description>The pr2_navigation stack holds common configuration options for running the</description>
   <maintainer email="dave@cse.unr.edu">David Feil-Seifer</maintainer>
 

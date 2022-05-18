@@ -2,8 +2,8 @@
 Changelog for package pr2_navigation_config
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2022-05-18)
+------------------
 * remove sim_period parameter: it does not exist (anymore?) (`#42 <https://github.com/pr2/pr2_navigation/issues/42>`_)
 * updated maintainer
 * fixed CMake files for compile in kinetic

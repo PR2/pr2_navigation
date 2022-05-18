@@ -1,6 +1,6 @@
 <package>
   <name>pr2_navigation_perception</name>
-  <version>0.1.28</version>
+  <version>0.2.0</version>
   <description>This package holds navigation-specific sensor configuration options and launch files for the PR2.</description>
   <maintainer email="dave@cse.unr.edu">David Feil-Seifer</maintainer>
 
