@@ -2,6 +2,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(pr2_navigation_self_filter)
 
+find_package(catkin REQUIRED COMPONENTS roscpp tf filters sensor_msgs urdf roscpp resource_retriever visualization_msgs pcl_ros)
+
 find_package(PkgConfig REQUIRED)
 
 find_package(Boost REQUIRED)
@@ -39,8 +41,6 @@ else()
   set(ASSIMP_INCLUDE_DIRS)
 endif()
 
-
-find_package(catkin REQUIRED COMPONENTS roscpp tf filters sensor_msgs urdf roscpp resource_retriever visualization_msgs pcl_ros)
 
 catkin_package(
     DEPENDS bullet
