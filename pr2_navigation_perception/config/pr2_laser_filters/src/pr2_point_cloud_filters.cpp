@@ -30,6 +30,6 @@
 #include "sensor_msgs/PointCloud2.h"
 #include "pr2_laser_filters/pr2_point_cloud_footprint_filter.h"
 #include "filters/filter_base.h"
-#include "pluginlib/class_list_macros.h"
+#include "pluginlib/class_list_macros.hpp"
 
 PLUGINLIB_EXPORT_CLASS(pr2_laser_filters::PR2PointCloudFootprintFilterNew, filters::FilterBase<sensor_msgs::PointCloud2>)

@@ -36,6 +36,6 @@
 *********************************************************************/
 #include <laser_tilt_controller_filter/laser_tilt_controller_filter.h>
 
-#include <pluginlib/class_list_macros.h>
+#include <pluginlib/class_list_macros.hpp>
 
 PLUGINLIB_EXPORT_CLASS(laser_tilt_controller_filter::LaserTiltControllerFilter, filters::FilterBase<sensor_msgs::LaserScan>)
