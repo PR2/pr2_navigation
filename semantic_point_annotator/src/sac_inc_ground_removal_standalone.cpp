@@ -121,7 +121,7 @@ class IncGroundRemoval
       //subscribe (cloud_topic.c_str (), laser_cloud_, &IncGroundRemoval::cloud_cb, 1);
       cloud_subscriber_ = new message_filters::Subscriber<sensor_msgs::PointCloud2>(public_node,cloud_topic,50);
       cloud_notifier_ = new tf::MessageFilter<sensor_msgs::PointCloud2>(*cloud_subscriber_,tf_,"odom_combined",50);
-      cloud_notifier_->registerCallback(boost::bind(&IncGroundRemoval::cloud_cb,this,_1));
+      cloud_notifier_->registerCallback(boost::bind(&IncGroundRemoval::cloud_cb,this,boost::placeholders::_1));
 
 //      cloud_notifier_ = new tf::MessageNotifier<sample_consensus::PointCloud> (&tf_, node_,
 //                        boost::bind (&IncGroundRemoval::cloud_cb, this, _1), cloud_topic, "odom_combined", 50);
