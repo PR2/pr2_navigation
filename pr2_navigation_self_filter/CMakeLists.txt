@@ -14,7 +14,7 @@ pkg_check_modules(bullet REQUIRED bullet)
 find_package( PCL REQUIRED )
 add_definitions(${PCL_DEFINITIONS})
 
-if("$ENV{ROS_DISTRO}" STRLESS "melodic")
+if("$ENV{ROS_DISTRO}" STREQUAL "kinetic" OR "$ENV{ROS_DISTRO}" STREQUAL "indigo")
   set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 endif()
 
